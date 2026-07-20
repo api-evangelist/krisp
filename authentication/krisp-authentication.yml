@@ -1,0 +1,58 @@
+generated: '2026-07-19'
+method: searched
+source: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+docs: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+summary:
+  types: [apiKey]
+  api_key_in: [header, query]
+  oauth2_flows: []
+  note: >-
+    Krisp uses a two-stage API-key model. A long-lived account API key (issued in the developer dashboard
+    at https://developers.krisp.ai/) authenticates REST calls via an Authorization header. That key mints
+    a short-lived session key which is the only credential passed to the streaming WebSocket endpoint, so
+    the account key never reaches the browser. There is no OAuth 2.0, OpenID Connect, or mutual TLS
+    surface; /.well-known/oauth-authorization-server and a valid /.well-known/openid-configuration are
+    both absent.
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  value_format: 'api-key {API_KEY}'
+  scope: REST — api.developers.krisp.ai
+  issued_at: https://developers.krisp.ai/
+  applies_to:
+  - GET /v2/sdk/voice-translation/session/token
+  - GET /voice-translation/languages
+  - GET /v2/sdk/versions/{id}/download-urls
+  sources: [https://sdk-docs.krisp.ai/docs/voice-translation-api.md, https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md]
+  note: >-
+    The docs render this header two ways — 'api-key API_KEY' in the session-token example and
+    'API-Key {api-key}' on the list-languages endpoint. Recorded verbatim; the scheme value appears to be
+    case-insensitive.
+- name: SessionKeyAuth
+  type: apiKey
+  in: query
+  parameter: authorization
+  value_format: 'Api-Key {SESSION_KEY}'
+  scope: streaming — wss://streaming.krisp.ai/vt
+  sources: [https://sdk-docs.krisp.ai/docs/voice-translation-api.md]
+  note: Passed as a query parameter on the WebSocket URL because browsers cannot set headers on WSS handshakes.
+session_keys:
+  mint_operation: GET https://api.developers.krisp.ai/v2/sdk/voice-translation/session/token
+  parameter: expiration_ttl
+  parameter_units: minutes
+  ttl_min: 5
+  ttl_max: 1440
+  response_fields: [session_key, expires_at, key_id, status, type]
+  recommended_pattern: >-
+    Mint the session key on your backend with the account API key, then hand only the session key to the
+    client that opens the WebSocket.
+auth_failure:
+  code: 401
+  reason: Unauthorized
+  causes: [missing API key, invalid API key, expired API key]
+  source: errors/krisp-error-codes.yml
+related:
+- conventions/krisp-conventions.yml
+- errors/krisp-error-codes.yml
