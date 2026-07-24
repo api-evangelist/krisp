@@ -1,0 +1,179 @@
+openapi: 3.1.0
+info:
+  title: Krisp Developers SDK Distribution API
+  version: v2
+  summary: REST surface of the Krisp developer platform — Voice Translation session minting, supported languages, and programmatic SDK/model downloads.
+  description: NOT PUBLISHED BY KRISP. Krisp publishes no OpenAPI document. This description is a faithful transcription by the API Evangelist enrichment pipeline of the REST endpoints Krisp documents in prose at https://sdk-docs.krisp.ai/docs/voice-translation-api.md and https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md. Paths, methods, parameters, headers, and response shapes are taken verbatim from those pages; operationIds and schema names were assigned by the pipeline because the source documentation does not name them. The real-time translation surface itself is a WebSocket protocol and is described separately in asyncapi/krisp-voice-translation-asyncapi.yml.
+  x-apievangelist-provenance:
+    generated: '2026-07-19'
+    method: derived
+    published_by_provider: false
+    source:
+    - https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+    - https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md
+  contact:
+    name: Krisp Developers
+    url: https://krisp.ai/developers/
+  termsOfService: https://krisp.ai/terms-of-use/
+servers:
+- url: https://api.developers.krisp.ai
+  description: Krisp developer REST API
+security:
+- ApiKeyAuth: []
+tags:
+- name: SDK Distribution
+  description: Programmatic retrieval of licensed SDK packages and model files.
+paths:
+  /v2/sdk/versions/{id}/download-urls:
+    get:
+      operationId: getSdkVersionDownloadUrls
+      tags:
+      - SDK Distribution
+      summary: Get short-lived download URLs for an SDK version and its models
+      description: Retrieves temporary download URLs for a specific licensed SDK version and its associated model files, for use in CI/CD pipelines, automated testing workflows, or custom deployment scripts. The returned S3 URLs expire after data.expires_in seconds.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique version ID of the SDK, found in the SDK Dashboard.
+        schema:
+          type: integer
+        example: 329
+      responses:
+        '200':
+          description: Download URLs issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SdkDownloadUrlsResponse'
+              example:
+                success: true
+                data:
+                  expires_in: 300
+                  version:
+                    id: 42
+                    version: 1.3.4
+                    display_name: VIVA
+                    os: windows_x64
+                    platform: server
+                    technologies:
+                    - viva
+                    filename: release.zip
+                    download_url: s3.amazonaws.com...
+                  models:
+                  - id: 1
+                    technology: voice_isolation
+                    product: viva
+                    filename: model.zip
+                    download_url: s3.amazonaws.com...
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SdkDownloadUrlsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the API request was successful.
+        data:
+          type: object
+          properties:
+            expires_in:
+              type: integer
+              description: Lifespan of the generated download URLs in seconds.
+              example: 300
+            version:
+              $ref: '#/components/schemas/SdkVersion'
+            models:
+              type: array
+              items:
+                $ref: '#/components/schemas/SdkModel'
+    SdkModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        technology:
+          type: string
+          example: voice_isolation
+        product:
+          type: string
+          example: viva
+        filename:
+          type: string
+          example: model.zip
+        download_url:
+          type: string
+    SdkVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+        version:
+          type: string
+          example: 1.3.4
+        display_name:
+          type: string
+          example: VIVA
+        os:
+          type: string
+          example: windows_x64
+        platform:
+          type: string
+          example: server
+        technologies:
+          type: array
+          items:
+            type: string
+        filename:
+          type: string
+          example: release.zip
+        download_url:
+          type: string
+          description: Short-lived S3 download URL.
+    Error:
+      type: object
+      description: Krisp error payload. Not RFC 9457 problem+json.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP-style status code.
+            reason:
+              type: string
+            description:
+              type: string
+            reference_id:
+              type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Account API key from https://developers.krisp.ai/, sent as: api-key YOUR_API_KEY'

@@ -1,0 +1,192 @@
+openapi: 3.1.0
+info:
+  title: Krisp Developers SDK Distribution Voice Translation API
+  version: v2
+  summary: REST surface of the Krisp developer platform — Voice Translation session minting, supported languages, and programmatic SDK/model downloads.
+  description: NOT PUBLISHED BY KRISP. Krisp publishes no OpenAPI document. This description is a faithful transcription by the API Evangelist enrichment pipeline of the REST endpoints Krisp documents in prose at https://sdk-docs.krisp.ai/docs/voice-translation-api.md and https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md. Paths, methods, parameters, headers, and response shapes are taken verbatim from those pages; operationIds and schema names were assigned by the pipeline because the source documentation does not name them. The real-time translation surface itself is a WebSocket protocol and is described separately in asyncapi/krisp-voice-translation-asyncapi.yml.
+  x-apievangelist-provenance:
+    generated: '2026-07-19'
+    method: derived
+    published_by_provider: false
+    source:
+    - https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+    - https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md
+  contact:
+    name: Krisp Developers
+    url: https://krisp.ai/developers/
+  termsOfService: https://krisp.ai/terms-of-use/
+servers:
+- url: https://api.developers.krisp.ai
+  description: Krisp developer REST API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Voice Translation
+  description: Session minting and language discovery for the real-time voice translation service.
+paths:
+  /v2/sdk/voice-translation/session/token:
+    get:
+      operationId: createVoiceTranslationSessionToken
+      tags:
+      - Voice Translation
+      summary: Mint a Voice Translation session key
+      description: Exchanges the long-lived account API key for a short-lived session key. The session key is the only credential passed to the streaming WebSocket endpoint, so the account key never has to reach an untrusted client. Mint this on your backend.
+      parameters:
+      - name: expiration_ttl
+        in: query
+        required: false
+        description: Session key lifetime in MINUTES.
+        schema:
+          type: integer
+          minimum: 5
+          maximum: 1440
+        example: 100
+      responses:
+        '200':
+          description: Session key issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionTokenResponse'
+              example:
+                data:
+                  session_key: session_key_...
+                  expires_at: '2026-05-04T12:00:00.000Z'
+                  key_id: 123
+                  status: active
+                  type: session
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /voice-translation/languages:
+    get:
+      operationId: listVoiceTranslationLanguages
+      tags:
+      - Voice Translation
+      summary: List supported voice translation languages
+      description: Returns the languages currently available for voice translation. Use the returned language_code values as source_language / target_language when starting a session. The list is dynamic — fetch it at session start rather than hard-coding it.
+      x-apievangelist-note: Documented in the API reference as "GET /voice-translation/languages" with no version prefix, unlike the other documented operations which are under /v2/sdk/. Transcribed exactly as published.
+      responses:
+        '200':
+          description: Supported languages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LanguagesResponse'
+              example:
+                success: true
+                code: 0
+                data:
+                - name: English (United States)
+                  language_code: en-US
+                - name: French
+                  language_code: fr-FR
+                - name: German
+                  language_code: de-DE
+                req_id: '...'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PaymentRequired:
+      description: Balance exhausted or subscription expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SessionTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SessionToken'
+    LanguagesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        req_id:
+          type: string
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable language name.
+          example: English (United States)
+        language_code:
+          type: string
+          description: BCP 47 (RFC 5646) locale code.
+          example: en-US
+    SessionToken:
+      type: object
+      properties:
+        session_key:
+          type: string
+          description: Short-lived key passed to the streaming WebSocket endpoint.
+        expires_at:
+          type: string
+          format: date-time
+        key_id:
+          type: integer
+        status:
+          type: string
+          example: active
+        type:
+          type: string
+          example: session
+    Error:
+      type: object
+      description: Krisp error payload. Not RFC 9457 problem+json.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP-style status code.
+            reason:
+              type: string
+            description:
+              type: string
+            reference_id:
+              type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Account API key from https://developers.krisp.ai/, sent as: api-key YOUR_API_KEY'
