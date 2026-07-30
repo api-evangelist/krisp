@@ -1,22 +1,91 @@
 aid: krisp
 name: Krisp
-description: 'Krisp is a company surfaced as a portfolio company of sierra-ventures and added to the API
-  Evangelist network as a stub for enrichment. Sector: ai. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: 'Krisp is a Voice AI platform whose real-time speech-enhancement models run on over 200 million
+  devices, licensed by Discord, Twilio, and VMware among others. Beyond its consumer AI Note Taker, Krisp
+  ships a developer surface: the AI Voice SDK family (VIVA for voice AI agents — voice isolation, turn
+  prediction, interruption prediction, VAD; and RTC for human-to-human calls — accent conversion,
+  bidirectional noise cancellation, background voice cancellation) across Windows, macOS, Linux, Web
+  (JS/WASM), iOS, and Android with C++, Python, Node.js, Go, Rust, and JavaScript bindings, plus framework
+  integrations for LiveKit, WebRTC, and Pipecat. Krisp also runs a self-serve Voice Translation API — a
+  streaming WebSocket speech-to-speech translation service covering 61 languages behind a REST session-token
+  mint — and a programmatic SDK and model download REST API for CI/CD pipelines.'
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://krisp.ai/wp-content/uploads/2025/08/thumb1.jpg
 url: https://raw.githubusercontent.com/api-evangelist/krisp/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - sierra-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: provider
+x-tier-reason: enrichment-pipeline-verified-developer-surface
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Ai
-apis: []
+- Voice AI
+- Speech
+- Audio
+- Noise Cancellation
+- Speech Translation
+- Real Time Communications
+- WebRTC
+- Conversational AI
+- SDK
+- Machine Learning
+apis:
+- aid: krisp:krisp-sdk-distribution-api
+  name: Krisp SDK Distribution API
+  description: Programmatic retrieval of licensed SDK packages and model files.
+  humanURL: https://krisp.ai/developers/voice-translation-api/
+  baseURL: https://api.developers.krisp.ai
+  tags:
+  - SDK Distribution
+  properties:
+  - type: OpenAPI
+    url: openapi/krisp-sdk-distribution-api-openapi.yml
+  - type: Documentation
+    url: https://sdk-docs.krisp.ai/docs/voice-translation.md
+  - type: APIReference
+    url: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+  - type: GettingStarted
+    url: https://sdk-docs.krisp.ai/docs/quick-start.md
+  - type: AsyncAPI
+    url: asyncapi/krisp-voice-translation-asyncapi.yml
+  - type: Documentation
+    url: https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md
+- aid: krisp:krisp-voice-translation-api
+  name: Krisp Voice Translation API
+  description: Session minting and language discovery for the real-time voice translation service.
+  humanURL: https://krisp.ai/developers/voice-translation-api/
+  baseURL: https://api.developers.krisp.ai
+  tags:
+  - Voice Translation
+  properties:
+  - type: OpenAPI
+    url: openapi/krisp-voice-translation-api-openapi.yml
+  - type: Documentation
+    url: https://sdk-docs.krisp.ai/docs/voice-translation.md
+  - type: APIReference
+    url: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+  - type: GettingStarted
+    url: https://sdk-docs.krisp.ai/docs/quick-start.md
+  - type: AsyncAPI
+    url: asyncapi/krisp-voice-translation-asyncapi.yml
+  - type: Documentation
+    url: https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +94,75 @@ maintainers:
 common:
 - type: Website
   url: https://krisp.ai/
+- type: DeveloperPortal
+  url: https://krisp.ai/developers/
+- type: Documentation
+  url: https://sdk-docs.krisp.ai/
+- type: APIReference
+  url: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+- type: GettingStarted
+  url: https://sdk-docs.krisp.ai/docs/getting-started.md
+- type: Support
+  url: https://help.krisp.ai
+- type: Blog
+  url: https://krisp.ai/blog/
+- type: GitHubOrganization
+  url: https://github.com/krispai
+- type: Pricing
+  url: https://krisp.ai/pricing/
+- type: SignUp
+  url: https://account.krisp.ai/trial/signup
+- type: Login
+  url: https://developers.krisp.ai/
+- type: TermsOfService
+  url: https://krisp.ai/terms-of-use/
+- type: PrivacyPolicy
+  url: https://krisp.ai/privacy-policy/
+- type: Security
+  url: https://krisp.ai/security/
+- type: TrustCenter
+  url: https://trust.krisp.ai/
+- type: Compliance
+  url: https://krisp.ai/security-for-ai-meeting-assistant/
+- type: ChangeLog
+  url: https://sdk-docs.krisp.ai/changelog
+- type: ChangeLog
+  name: Krisp SDK changelog artifact
+  url: changelog/krisp-changelog.yml
+- type: Sandbox
+  url: https://lab.krisp.ai/
+- type: LLMsTxt
+  url: llms/krisp-llms.txt
+- type: WellKnown
+  url: well-known/krisp-well-known.yml
+- type: SecurityTxt
+  url: well-known/krisp-security.txt
+- type: VulnerabilityDisclosure
+  url: security/krisp-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/krisp-domain-security.yml
+- type: Packages
+  url: packages/krisp-packages.yml
+- type: SDKs
+  url: packages/krisp-packages.yml
+- type: Authentication
+  url: authentication/krisp-authentication.yml
+- type: Conventions
+  url: conventions/krisp-conventions.yml
+- type: ErrorCatalog
+  url: errors/krisp-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/krisp-lifecycle.yml
+- type: Conformance
+  url: conformance/krisp-conformance.yml
+- type: DataModel
+  url: data-model/krisp-data-model.yml
+- type: AgenticAccess
+  url: agentic-access/krisp-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
