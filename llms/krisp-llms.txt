@@ -1,0 +1,73 @@
+# KrispAI Documentation
+
+> Documentation for KrispAI
+
+## Guides
+- [Getting Started](https://sdk-docs.krisp.ai/docs/getting-started.md): Integrate world's most used real-time AI speech enhancement SDKs into your app.
+- [Speech Quality](https://sdk-docs.krisp.ai/docs/krisp-audio-quality-testings.md)
+- [Licensing](https://sdk-docs.krisp.ai/docs/licensing-information.md)
+- [Security](https://sdk-docs.krisp.ai/docs/privacy.md)
+- [Getting Started](https://sdk-docs.krisp.ai/docs/getting-started-server.md)
+- [Platforms](https://sdk-docs.krisp.ai/docs/supported-platforms-server.md)
+- [Voice Isolation](https://sdk-docs.krisp.ai/docs/models-for-conversational-ai.md)
+- [Turn-Taking](https://sdk-docs.krisp.ai/docs/krisp-turn-taking-v2-blog.md)
+- [Integrations](https://sdk-docs.krisp.ai/docs/daily-pipecat.md)
+- [Known Issues](https://sdk-docs.krisp.ai/docs/troubleshooting.md)
+- [Getting Started](https://sdk-docs.krisp.ai/docs/getting-started-with-rtc-sdk.md)
+- [Platforms](https://sdk-docs.krisp.ai/docs/supported-platforms.md)
+- [Accent Conversion](https://sdk-docs.krisp.ai/docs/accent-conversion.md)
+- [Accent Conversion Device SDK](https://sdk-docs.krisp.ai/docs/rtc-accent-conversion-device-sdk.md)
+- [Accent Conversion Server SDK](https://sdk-docs.krisp.ai/docs/rtc-accent-conversion-server-sdk.md)
+- [Accent Conversion Browser SDK](https://sdk-docs.krisp.ai/docs/rtc-accent-conversion-web-browser-sdk.md)
+- [Background Voice Cancellation & Noise Cancellation](https://sdk-docs.krisp.ai/docs/krisp-rtc-bvc-nc.md)
+- [Model Selection Guide - BVC & NC](https://sdk-docs.krisp.ai/docs/rtc-model-guide-bvc-nc.md)
+- [Getting Started with Browser SDK](https://sdk-docs.krisp.ai/docs/getting-started-browser-sdk-nc-bvc.md)
+- [Integration](https://sdk-docs.krisp.ai/docs/integration-browser-sdk-bvc-nc.md)
+- [Debugging](https://sdk-docs.krisp.ai/docs/debugging.md)
+- [Noice Canceling Level Control](https://sdk-docs.krisp.ai/docs/noice-canceling-level-control.md)
+- [VAD](https://sdk-docs.krisp.ai/docs/vad.md)
+- [Examples](https://sdk-docs.krisp.ai/docs/examples-js.md)
+- [Desktop SDK](https://sdk-docs.krisp.ai/docs/desktop-sdk-bvc.md)
+- [Mobile SDK](https://sdk-docs.krisp.ai/docs/mobile-background-voice-cancellation.md)
+- [Twilio Video: IOS](https://sdk-docs.krisp.ai/docs/twilio-video-ios.md)
+- [WebRTC: Android](https://sdk-docs.krisp.ai/docs/webrtc-android.md)
+- [WebRTC: iOS](https://sdk-docs.krisp.ai/docs/webrtc-ios.md)
+- [Integrations with Apps](https://sdk-docs.krisp.ai/docs/js-integrations.md)
+- [Twilio Voice](https://sdk-docs.krisp.ai/docs/twilio-voice.md)
+- [React](https://sdk-docs.krisp.ai/docs/react.md)
+- [Jitsi](https://sdk-docs.krisp.ai/docs/jitsi.md)
+- [SIP.js](https://sdk-docs.krisp.ai/docs/sipjs.md)
+- [Amazon Connect](https://sdk-docs.krisp.ai/docs/amazon-connect.md)
+- [Electron](https://sdk-docs.krisp.ai/docs/electron.md)
+- [Voice Translation](https://sdk-docs.krisp.ai/docs/voice-translation.md)
+- [Supported Languages](https://sdk-docs.krisp.ai/docs/supported-languages.md)
+- [Quick Start](https://sdk-docs.krisp.ai/docs/quick-start.md)
+- [Best Practices](https://sdk-docs.krisp.ai/docs/best-practices.md)
+- [API Reference](https://sdk-docs.krisp.ai/docs/voice-translation-api.md)
+- [Web Browser SDK](https://sdk-docs.krisp.ai/docs/introduction.md)
+- [Getting Started](https://sdk-docs.krisp.ai/docs/getting-started-js.md)
+- [Background Voice Cancellation Integration](https://sdk-docs.krisp.ai/docs/background-voice-cancellation-integration.md)
+- [Voice Activity Detection (VAD)](https://sdk-docs.krisp.ai/docs/voice-activity-detection-vad-js.md)
+- [NoiseDB](https://sdk-docs.krisp.ai/docs/noisedb-js.md)
+- [Session, Per-Frame Stats](https://sdk-docs.krisp.ai/docs/stats.md)
+- [JS SDK API Reference](https://sdk-docs.krisp.ai/docs/api-reference.md)
+- [KrispSDK](https://sdk-docs.krisp.ai/docs/krispsdk.md)
+- [KrispSDK.isSupported()](https://sdk-docs.krisp.ai/docs/issupported.md): Checks if the current browser supports the Krisp SDK.
+- [init (KrispSDK)](https://sdk-docs.krisp.ai/docs/init.md): Initializes the SDK and loads configured models. Must be called before using any filter methods.
+- [on (KrispSDK)](https://sdk-docs.krisp.ai/docs/on.md): Registers an event listener.
+- [dispose (KrispSDK)](https://sdk-docs.krisp.ai/docs/dispose.md): Disposes the SDK and cleans up resources.
+- [createNoiseFilter (KrispSDK)](https://sdk-docs.krisp.ai/docs/createnoisefilter.md): Creates a noise cancellation filter.
+- [createAccentReductionFilter (KrispSDK)](https://sdk-docs.krisp.ai/docs/createaccentreductionfilter.md): Creates an accent reduction filter.
+- [Filter Control (AudioFilterNode)](https://sdk-docs.krisp.ai/docs/filter-control.md)
+- [Status & Information (AudioFilterNode)](https://sdk-docs.krisp.ai/docs/status-information.md)
+- [Voice Activity Detection (AudioFilterNode)](https://sdk-docs.krisp.ai/docs/voice-activity-detection-audiofilternode.md)
+- [Cleanup & Disposal](https://sdk-docs.krisp.ai/docs/cleanup-disposal.md)
+- [Events (AudioFilterNode)](https://sdk-docs.krisp.ai/docs/event-management-krispsdk.md): The AudioFilterNode dispatches several events:
+- [Programmatic SDK & Model Downloads API](https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md): This feature allows you to programmatically download SDK version packages and their associated model files using a single REST call. The API returns short-lived download links, making it ideal for integration into CI/CD pipelines, automated testing workflows, or custom deployment scripts.
+
+## Changelog
+- [🌐 RTC JS Browser SDK 2.3.9](https://sdk-docs.krisp.ai/changelog/rtc-js-sdk-239.md)
+- [VIVA Python SDK v1.11.0](https://sdk-docs.krisp.ai/changelog/viva-python-sdk-v1110.md)
+- [VIVA Node.js  SDK v1.6.0](https://sdk-docs.krisp.ai/changelog/viva-nodejs-sdk-v160.md)
+- [VIVA Go SDK v1.4.0](https://sdk-docs.krisp.ai/changelog/viva-go-sdk-v140.md)
+- [VIVA C/C++ SDK v9.19.0](https://sdk-docs.krisp.ai/changelog/viva-cc-sdk-v9190.md)

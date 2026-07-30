@@ -1,0 +1,330 @@
+asyncapi: 3.0.0
+info:
+  title: Krisp Voice Translation WebSocket API
+  version: '1.0.0'
+  description: >-
+    NOT PUBLISHED BY KRISP. Krisp publishes no AsyncAPI document. This is a faithful transcription by the
+    API Evangelist enrichment pipeline of the WebSocket protocol Krisp documents in prose at
+    https://sdk-docs.krisp.ai/docs/voice-translation-api.md. The endpoint, the initial config message, the
+    binary audio exchange, and every server event (transcript, translate, error) with their field tables
+    are taken verbatim from that page. Channel, operation, and message names were assigned by the pipeline
+    because the source documentation does not name them.
+
+
+    The API provides real-time audio transcription and translation over a single persistent WebSocket
+    connection. JSON text frames (opcode 0x1) and binary audio frames (opcode 0x2) coexist on the same
+    socket; the receiver distinguishes them by frame opcode. Audio is 16 kHz mono in both directions.
+  contact:
+    name: Krisp Developers
+    url: https://krisp.ai/developers/voice-translation-api/
+  x-apievangelist-provenance:
+    generated: '2026-07-19'
+    method: derived
+    published_by_provider: false
+    source: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+servers:
+  streaming:
+    host: streaming.krisp.ai
+    pathname: /vt
+    protocol: wss
+    description: >-
+      Voice Translation streaming endpoint. The session key is supplied on the query string as
+      ?authorization=Api-Key SESSION_KEY because browsers cannot set headers on a WSS handshake. Mint the
+      session key first via GET https://api.developers.krisp.ai/v2/sdk/voice-translation/session/token.
+    security:
+    - $ref: '#/components/securitySchemes/sessionKey'
+channels:
+  vt:
+    address: /vt
+    title: Voice translation session
+    description: >-
+      A single bidirectional translation session. The client sends exactly one JSON config message, then
+      streams binary audio; the server streams synthesized translated audio back plus JSON transcript,
+      translation, and error events.
+    servers:
+    - $ref: '#/servers/streaming'
+    messages:
+      sessionConfig:
+        $ref: '#/components/messages/SessionConfig'
+      inboundAudio:
+        $ref: '#/components/messages/InboundAudio'
+      translatedAudio:
+        $ref: '#/components/messages/TranslatedAudio'
+      transcript:
+        $ref: '#/components/messages/Transcript'
+      translate:
+        $ref: '#/components/messages/Translate'
+      error:
+        $ref: '#/components/messages/Error'
+operations:
+  startSession:
+    action: send
+    channel:
+      $ref: '#/channels/vt'
+    title: Send the session configuration
+    summary: >-
+      Once the WebSocket connection is established, the client MUST send a single JSON configuration
+      message as the first message, before sending any audio.
+    messages:
+    - $ref: '#/channels/vt/messages/sessionConfig'
+  sendAudio:
+    action: send
+    channel:
+      $ref: '#/channels/vt'
+    title: Stream source audio
+    summary: >-
+      Raw binary audio frames in the encoding declared in config.audio.format. Pace in real time — one
+      chunk per input_frame_duration ms (640 bytes per 20 ms at 16 kHz mono s16le).
+    messages:
+    - $ref: '#/channels/vt/messages/inboundAudio'
+  receiveEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/vt'
+    title: Receive translated audio and events
+    summary: Synthesized translated speech plus transcript, translation, and error events.
+    messages:
+    - $ref: '#/channels/vt/messages/translatedAudio'
+    - $ref: '#/channels/vt/messages/transcript'
+    - $ref: '#/channels/vt/messages/translate'
+    - $ref: '#/channels/vt/messages/error'
+components:
+  securitySchemes:
+    sessionKey:
+      type: httpApiKey
+      in: query
+      name: authorization
+      description: 'Value format: Api-Key SESSION_KEY. TTL 5–1440 minutes, set at mint time.'
+  messages:
+    SessionConfig:
+      name: sessionConfig
+      title: Initial client configuration
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SessionConfig'
+      examples:
+      - name: enToFr
+        payload:
+          config:
+            audio: {format: pcm_s16le, sample_rate: 16000, channels: 1}
+            source_language: en-US
+            target_language: fr-FR
+            voice: female
+            vocabulary: [Krisp, AcmeCorp]
+            translation_dictionary:
+            - {source: referral, target: référence}
+            - {source: copay, target: quote-part}
+            transcript: {interim: true, final: true, translate: true}
+            features: {background_voice_cancellation: true}
+            metadata: {reference_id: your-reference-id}
+    InboundAudio:
+      name: inboundAudio
+      title: Source audio frame
+      summary: Raw PCM (pcm_s16le) or Opus audio, 16 kHz mono, as a binary WebSocket frame.
+      contentType: application/octet-stream
+      payload:
+        type: string
+        contentEncoding: binary
+    TranslatedAudio:
+      name: translatedAudio
+      title: Synthesized translated speech frame
+      summary: Translated speech in the same encoding as the inbound stream, 16 kHz mono, binary frame.
+      contentType: application/octet-stream
+      payload:
+        type: string
+        contentEncoding: binary
+    Transcript:
+      name: transcript
+      title: Source transcript event
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TranscriptEvent'
+      examples:
+      - name: interim
+        payload:
+          transcript:
+            text: Hello, how are you?
+            final: false
+            start: '2026-03-25T19:24:45.370+00:00'
+            duration: 436
+            utterance_id: daslkndlkans
+            reference_id: askdnl
+    Translate:
+      name: translate
+      title: Translated transcript event
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TranslateEvent'
+      examples:
+      - name: final
+        payload:
+          translate:
+            text: ¿Hola, cómo estás?
+            final: true
+            utterance_id: daslkndlkans
+            reference_id: askdnl
+    Error:
+      name: error
+      title: Error event
+      summary: Emitted when the server encounters an issue processing the request.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ErrorEvent'
+      examples:
+      - name: badRequest
+        payload:
+          error:
+            code: 400
+            reason: Bad request
+            description: Actual description of the error
+            reference_id: askdnl
+  schemas:
+    SessionConfig:
+      type: object
+      required: [config]
+      properties:
+        config:
+          type: object
+          required: [source_language, target_language, voice]
+          properties:
+            audio:
+              type: object
+              properties:
+                format:
+                  type: string
+                  enum: [pcm_s16le, opus]
+                  default: pcm_s16le
+                  description: Audio encoding format.
+                sample_rate:
+                  type: integer
+                  default: 16000
+                  description: Audio sample rate in Hz. Only 16000 Hz confirmed.
+                channels:
+                  type: integer
+                  default: 1
+                  description: Number of audio channels. Only mono confirmed.
+            source_language:
+              type: string
+              description: Source language locale in BCP 47 (RFC 5646) format.
+              example: en-US
+            target_language:
+              type: string
+              description: Target language locale in BCP 47 (RFC 5646) format.
+              example: fr-FR
+            voice:
+              type: string
+              enum: [male, female]
+              description: Voice ID for translated audio output.
+            vocabulary:
+              type: array
+              items:
+                type: string
+              description: Domain-specific or uncommon words for improved recognition accuracy.
+            translation_dictionary:
+              type: array
+              description: Custom source→target term mappings for ambiguous or specialized vocabulary.
+              items:
+                type: object
+                properties:
+                  source: {type: string}
+                  target: {type: string}
+            transcript:
+              type: object
+              properties:
+                interim:
+                  type: boolean
+                  default: true
+                  description: >-
+                    Defaults to true when the entire transcript object is omitted. If a transcript object
+                    is provided but interim is missing, it defaults to false.
+                final:
+                  type: boolean
+                  default: true
+                  description: true for the final transcript of an utterance, false for interim transcripts.
+                translate:
+                  type: boolean
+                  default: true
+                  description: Whether to emit translated transcript events.
+            features:
+              type: object
+              description: Optional opt-in feature flags.
+              properties:
+                background_voice_cancellation:
+                  type: boolean
+                  default: false
+                  description: Filter other voices server-side.
+            metadata:
+              type: object
+              description: Client-supplied metadata.
+              properties:
+                reference_id:
+                  type: string
+                  description: Optional correlation id echoed on every event; useful for support.
+    TranscriptEvent:
+      type: object
+      required: [transcript]
+      properties:
+        transcript:
+          type: object
+          required: [text, final, start, duration, utterance_id]
+          properties:
+            text:
+              type: string
+              description: Transcript text for this chunk.
+            final:
+              type: boolean
+              description: false for interim events.
+            start:
+              type: string
+              format: date-time
+              description: Chunk start timestamp (UTC, ISO 8601).
+            duration:
+              type: integer
+              description: Chunk duration in milliseconds.
+            utterance_id:
+              type: string
+              description: Links this event to the corresponding final transcript and translation.
+            reference_id:
+              type: string
+              description: Echoed client reference ID.
+    TranslateEvent:
+      type: object
+      required: [translate]
+      properties:
+        translate:
+          type: object
+          required: [text, final, utterance_id]
+          properties:
+            text:
+              type: string
+              description: Translated text.
+            final:
+              type: boolean
+              description: false for interim events.
+            utterance_id:
+              type: string
+              description: Links this event to the corresponding transcript.
+            reference_id:
+              type: string
+              description: Echoed client reference ID.
+    ErrorEvent:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, reason, description]
+          properties:
+            code:
+              type: integer
+              description: HTTP-style status code.
+              enum: [400, 401, 402, 429, 500]
+            reason:
+              type: string
+              description: Short reason string.
+            description:
+              type: string
+              description: Detailed error description.
+            reference_id:
+              type: string
+              description: Echoed client reference ID.

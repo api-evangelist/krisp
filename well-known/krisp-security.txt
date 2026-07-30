@@ -1,0 +1,4 @@
+Contact: https://hackerone.com/krisp
+Policy: https://krisp.ai/security/
+Preferred-Languages: en
+Canonical: https://krisp.ai/.well-known/security.txt

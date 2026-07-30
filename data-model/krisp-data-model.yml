@@ -1,0 +1,76 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/krisp-developers-openapi.yml + asyncapi/krisp-voice-translation-asyncapi.yml
+notes: >-
+  Krisp's developer surface is session- and artifact-oriented rather than a CRUD resource graph, so the
+  model is small. Entities and fields are derived from the response schemas Krisp documents; no object
+  reference page with id prefixes or domains is published.
+entities:
+- name: ApiKey
+  description: Long-lived account credential issued in the developer dashboard.
+  identifier: null
+  fields: []
+  source: authentication/krisp-authentication.yml
+  relationships:
+  - {type: has_many, target: SessionToken, via: mint}
+- name: SessionToken
+  description: Short-lived credential authorizing a single Voice Translation WebSocket session.
+  identifier: key_id
+  fields: [session_key, expires_at, key_id, status, type]
+  source: openapi/krisp-developers-openapi.yml#/components/schemas/SessionToken
+  relationships:
+  - {type: belongs_to, target: ApiKey, via: mint}
+  - {type: has_many, target: TranslationSession, via: authorization}
+- name: TranslationSession
+  description: A live WebSocket translation session configured by the initial JSON config frame.
+  identifier: null
+  correlation: metadata.reference_id
+  fields: [source_language, target_language, voice, vocabulary, translation_dictionary, transcript, features,
+    metadata, audio]
+  source: asyncapi/krisp-voice-translation-asyncapi.yml#/components/schemas/SessionConfig
+  relationships:
+  - {type: belongs_to, target: SessionToken, via: authorization}
+  - {type: has_many, target: Utterance, via: utterance_id}
+  - {type: has_one, target: Language, via: source_language}
+  - {type: has_one, target: Language, via: target_language}
+- name: Utterance
+  description: A logical unit of speech linking interim transcripts to their final transcript and translation.
+  identifier: utterance_id
+  fields: [utterance_id]
+  relationships:
+  - {type: belongs_to, target: TranslationSession, via: utterance_id}
+  - {type: has_many, target: TranscriptEvent, via: utterance_id}
+  - {type: has_many, target: TranslateEvent, via: utterance_id}
+- name: TranscriptEvent
+  description: Interim or final source-language transcript chunk.
+  fields: [text, final, start, duration, utterance_id, reference_id]
+  source: asyncapi/krisp-voice-translation-asyncapi.yml#/components/schemas/TranscriptEvent
+  relationships:
+  - {type: belongs_to, target: Utterance, via: utterance_id}
+- name: TranslateEvent
+  description: Interim or final target-language translated text.
+  fields: [text, final, utterance_id, reference_id]
+  source: asyncapi/krisp-voice-translation-asyncapi.yml#/components/schemas/TranslateEvent
+  relationships:
+  - {type: belongs_to, target: Utterance, via: utterance_id}
+- name: Language
+  description: A supported voice translation locale.
+  identifier: language_code
+  identifier_format: BCP 47 (RFC 5646)
+  fields: [name, language_code]
+  source: openapi/krisp-developers-openapi.yml#/components/schemas/Language
+- name: SdkVersion
+  description: A licensed, downloadable build of a Krisp AI Voice SDK for one platform.
+  identifier: id
+  fields: [id, version, display_name, os, platform, technologies, filename, download_url]
+  source: openapi/krisp-developers-openapi.yml#/components/schemas/SdkVersion
+  relationships:
+  - {type: has_many, target: SdkModel, via: models}
+- name: SdkModel
+  description: An AI model file associated with an SDK version.
+  identifier: id
+  fields: [id, technology, product, filename, download_url]
+  source: openapi/krisp-developers-openapi.yml#/components/schemas/SdkModel
+  relationships:
+  - {type: belongs_to, target: SdkVersion, via: models}
+render: null

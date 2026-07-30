@@ -1,0 +1,98 @@
+generated: '2026-07-19'
+method: searched
+source: https://sdk-docs.krisp.ai/docs/voice-translation-api.md + https://krisp.ai/security/ + https://krisp.ai/llms.txt
+standards:
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 security scheme documented; /.well-known/oauth-authorization-server returns 404. Krisp uses
+    an account API key that mints short-lived session keys.
+- id: oidc
+  conforms: false
+  evidence: >-
+    /.well-known/openid-configuration on developers.krisp.ai returns HTTP 200 but serves the SPA HTML
+    shell, not a JSON discovery document.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a custom {"error": {code, reason, description, reference_id}} envelope, not
+    application/problem+json.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: https://krisp.ai/.well-known/security.txt returns 200 with Contact, Policy, Preferred-Languages,
+    and Canonical fields.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404 on both krisp.ai and sdk-docs.krisp.ai.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation policy or Sunset/Deprecation header support published.
+- id: rfc5646-bcp47
+  conforms: true
+  evidence: >-
+    Voice Translation source_language / target_language and the list-languages language_code values are
+    documented as BCP 47 locale codes, explicitly citing RFC 5646.
+- id: rfc6455-websocket
+  conforms: true
+  evidence: >-
+    The Voice Translation streaming API is a WSS connection multiplexing text frames (opcode 0x1) and
+    binary frames (opcode 0x2) per RFC 6455.
+- id: iso8601-timestamps
+  conforms: true
+  evidence: Transcript event start and session expires_at are ISO 8601 UTC timestamps.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key or retry-safety contract published; the REST surface is read-only GETs.
+- id: pagination
+  conforms: false
+  evidence: No paginated collections documented.
+- id: json-api
+  conforms: false
+  evidence: Custom success/code/data/req_id envelope, not JSON:API.
+- id: odata
+  conforms: false
+- id: scim
+  conforms: false
+- id: fhir
+  conforms: false
+- id: fapi
+  conforms: false
+- id: psd2
+  conforms: false
+- id: llms-txt
+  conforms: true
+  evidence: >-
+    Krisp publishes /llms.txt on both krisp.ai and sdk-docs.krisp.ai, and the docs site instructs agents
+    to use it as the Markdown index.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    A real WebSocket event surface exists and is documented in prose, but Krisp publishes no AsyncAPI
+    document. See asyncapi/krisp-voice-translation-asyncapi.yml (pipeline-derived, not provider-published).
+- id: openapi
+  conforms: false
+  evidence: >-
+    REST endpoints are documented in prose only; Krisp publishes no OpenAPI document. See
+    openapi/krisp-developers-openapi.yml (pipeline-derived, not provider-published).
+compliance_programs:
+  published: true
+  trust_center: https://trust.krisp.ai/
+  overview: https://krisp.ai/security/
+  detail: https://krisp.ai/security-for-ai-meeting-assistant/
+  frameworks:
+  - id: soc2
+    claimed: true
+    source: https://krisp.ai/llms.txt
+  - id: pci-dss
+    claimed: true
+    source: https://krisp.ai/llms.txt
+  - id: hipaa
+    claimed: true
+    source: https://krisp.ai/llms.txt
+  caveat: >-
+    Krisp states availability depends on plan, configuration, and organizational requirements. Certificate
+    artifacts are gated behind the Vanta Trust Center and were not independently retrieved.
+related:
+- security/krisp-trust-center.yml
+- security/krisp-vulnerability-disclosure.yml
+- conventions/krisp-conventions.yml

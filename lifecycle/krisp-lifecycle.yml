@@ -1,0 +1,56 @@
+generated: '2026-07-19'
+method: searched
+source: https://sdk-docs.krisp.ai/ + https://krisp.ai/developers/
+versioning:
+  scheme: uri-path
+  current: v2
+  example: https://api.developers.krisp.ai/v2/sdk/versions/{id}/download-urls
+  docs: https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md
+  note: >-
+    The list-languages operation is documented without a version prefix, so URI versioning is not applied
+    uniformly across the published REST surface.
+sdk_versioning:
+  scheme: semver
+  per: SDK family and language binding
+  families_tracked: [RTC JS Browser SDK, VIVA Python SDK, VIVA Node.js SDK, VIVA Go SDK, VIVA C/C++ SDK]
+  note: >-
+    Every licensed SDK version carries a numeric version ID retrievable from the SDK Dashboard and usable
+    against the download-urls operation.
+changelog:
+  url: https://sdk-docs.krisp.ai/changelog
+  artifact: changelog/krisp-changelog.yml
+  dated: false
+  note: Entries are published per SDK release; the index does not surface dates.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  note: >-
+    No deprecation policy, RFC 8594 Sunset/Deprecation header support, or end-of-life schedule is
+    published on the public developer surface. No Deprecation pointer is emitted.
+status_page:
+  url: null
+  public: false
+  note: >-
+    status.krisp.ai resolves but is gated behind Cloudflare Access (HTTP 403, "Error ・ Cloudflare Access")
+    and is therefore not a public status page. No StatusPage pointer is emitted.
+sla:
+  uptime_target: 99.9%
+  scope: Voice Translation API
+  source: https://krisp.ai/developers/
+  agreement_url: null
+  note: Advertised on the developer marketing page; no published SLA document or credit schedule found.
+support:
+  help_center: https://help.krisp.ai
+  sales: https://krisp.ai/contact-sales/
+  dashboard: https://developers.krisp.ai/
+deprecated_operations: []
+known_limitations:
+  source: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+  items:
+  - Only pcm_s16le and Opus audio formats are supported.
+  - Only 16000 Hz mono is confirmed.
+troubleshooting: https://sdk-docs.krisp.ai/docs/troubleshooting.md
+related:
+- changelog/krisp-changelog.yml
+- conventions/krisp-conventions.yml

@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: searched
+source: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+format: custom
+notes: >-
+  Krisp does not use RFC 9457 application/problem+json. Errors on the Voice Translation streaming API are
+  delivered as JSON text frames over the same WebSocket that carries binary audio, wrapped in a top-level
+  "error" object using HTTP-style status codes. REST responses use a success/code/data/req_id envelope.
+envelope:
+  transport: websocket text frame
+  wrapper: error
+  fields:
+  - {name: code, type: integer, required: true, description: HTTP-style status code}
+  - {name: reason, type: string, required: true, description: Short reason string}
+  - {name: description, type: string, required: true, description: Detailed error description}
+  - {name: reference_id, type: string, required: false, description: Echoed client-supplied correlation id}
+  example: |
+    {
+      "error": {
+        "code": 400,
+        "reason": "Bad request",
+        "description": "Actual description of the error",
+        "reference_id": "askdnl"
+      }
+    }
+rest_envelope:
+  fields: [success, code, data, req_id]
+  note: >-
+    REST responses carry a boolean success, an integer code (0 on success), a data payload, and a req_id
+    correlation identifier useful when contacting support.
+errors:
+- code: 400
+  reason: Bad Request
+  causes:
+  - Malformed request
+  - Invalid audio format
+  - Incorrect target language
+  - Invalid voice
+  remediation: >-
+    Validate the initial JSON config frame. audio.format must be pcm_s16le or opus; source_language and
+    target_language must be BCP-47 codes returned by the list-languages operation; voice must be male or
+    female.
+- code: 401
+  reason: Unauthorized
+  causes:
+  - Missing API key
+  - Invalid API key
+  - Expired API key
+  remediation: >-
+    Mint a fresh session key via GET /v2/sdk/voice-translation/session/token. Session keys expire after
+    expiration_ttl minutes (min 5, max 1440).
+- code: 402
+  reason: Payment Required
+  causes:
+  - Balance exhausted
+  - Subscription expired
+  remediation: Top up or renew the plan at https://krisp.ai/pricing/.
+- code: 429
+  reason: Too Many Requests
+  causes:
+  - Rate limit exceeded
+  - Max concurrent connections exceeded
+  remediation: >-
+    Back off and retry; cap the number of simultaneous WebSocket sessions. Krisp publishes no numeric
+    rate-limit values or RateLimit response headers in the public docs.
+- code: 500
+  reason: Internal Server Error
+  causes:
+  - Server failed to process the request
+  remediation: Retry with backoff; supply req_id / reference_id to support if it persists.
+related:
+- authentication/krisp-authentication.yml
+- conventions/krisp-conventions.yml
+- asyncapi/krisp-voice-translation-asyncapi.yml

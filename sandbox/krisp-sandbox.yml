@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: searched
+source: https://krisp.ai/developers/ + https://sdk-docs.krisp.ai/
+notes: >-
+  Krisp publishes an interactive playground and a free usage allowance rather than a separate test-mode
+  key namespace. There is no test-vs-live key prefix, no sandbox host, and no magic test identifiers — the
+  developer surface processes real audio against the production service, metered against the free tier.
+  Nothing here is invented; every value below is published by Krisp.
+playground:
+  url: https://lab.krisp.ai/
+  name: Krisp Lab
+  description: Hosted playground for trying the Krisp AI Voice models in the browser without integrating
+    an SDK.
+dashboard:
+  url: https://developers.krisp.ai/
+  description: Developer dashboard where API keys are issued and licensed SDK version IDs are listed.
+free_tier:
+  product: Voice Translation API
+  allowance: 60 minutes free
+  source: https://krisp.ai/developers/
+  signup: https://account.krisp.ai/trial/signup
+test_mode:
+  separate_test_keys: false
+  key_prefixes: []
+  sandbox_host: null
+  note: >-
+    A single account API key is used against api.developers.krisp.ai. Short-lived session keys minted from
+    it (expiration_ttl 5–1440 minutes) are the closest thing to a scoped, disposable credential.
+magic_test_values: []
+test_clocks:
+  supported: false
+fixture_tooling:
+  supported: false
+safe_experimentation:
+  - Mint a session key with the minimum expiration_ttl of 5 minutes when experimenting so a leaked key
+    expires quickly.
+  - Fetch the supported-language list at session start rather than hard-coding codes; the list is dynamic.
+  - Pace audio in real time (one chunk per 20 ms at 16 kHz mono) — the API requires real-time pacing.
+related:
+- authentication/krisp-authentication.yml
+- conventions/krisp-conventions.yml

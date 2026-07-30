@@ -1,0 +1,90 @@
+generated: '2026-07-19'
+method: searched
+source: npm registry search + https://krisp.ai/developers/ + https://sdk-docs.krisp.ai/
+notes: >-
+  Krisp's core AI Voice SDK family (VIVA and RTC) is distributed as licensed platform packages through the
+  developer dashboard at https://developers.krisp.ai/ and the programmatic download REST API, not through
+  public package registries. Only the Voice Translation browser SDK and the local monitoring helper are
+  published publicly on npm under the @krisp.ai scope. PyPI has no first-party Krisp package (the PyPI
+  project named "krisp" is an unrelated genomics tool).
+packages:
+- language: javascript
+  registry: npm
+  name: '@krisp.ai/krisp-vt-sdk'
+  version: 1.0.2
+  url: https://www.npmjs.com/package/@krisp.ai/krisp-vt-sdk
+  install: npm install @krisp.ai/krisp-vt-sdk
+  repository: https://github.com/krispai/vt-js-sdk
+  description: Krisp Voice Translation SDK — real-time speech-to-speech translation for the browser.
+  official: true
+- language: javascript
+  registry: npm
+  name: '@krisp.ai/kr-local-monitoring'
+  version: 0.1.1
+  url: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
+  install: npm install @krisp.ai/kr-local-monitoring
+  repository: https://github.com/krispai/kr-local-monitoring
+  description: Krisp Local Monitoring API
+  official: true
+licensed_distribution:
+  channel: https://developers.krisp.ai/
+  download_api: https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md
+  bindings:
+  - c++
+  - python
+  - node.js
+  - go
+  - rust
+  - javascript
+  platforms:
+  - windows
+  - macos
+  - linux
+  - web (js/wasm)
+  - ios
+  - android
+  families:
+  - name: VIVA SDK
+    for: voice AI agents
+    capabilities: [voice isolation, turn prediction, interruption prediction, voice activity detection]
+  - name: RTC SDK
+    for: human-to-human calls
+    capabilities: [accent conversion, outbound noise cancellation, inbound noise cancellation, background
+      voice cancellation]
+third_party_packages:
+- language: javascript
+  registry: npm
+  name: '@livekit/krisp-noise-filter'
+  url: https://www.npmjs.com/package/@livekit/krisp-noise-filter
+  publisher: LiveKit
+  official: false
+  note: Partner-published LiveKit track processor wrapping Krisp noise filtering.
+- language: javascript
+  registry: npm
+  name: '@livekit/react-native-krisp-noise-filter'
+  url: https://www.npmjs.com/package/@livekit/react-native-krisp-noise-filter
+  publisher: LiveKit
+  official: false
+- language: javascript
+  registry: npm
+  name: '@twilio/krisp-audio-plugin'
+  url: https://www.npmjs.com/package/@twilio/krisp-audio-plugin
+  publisher: Twilio
+  official: false
+  note: Partner-published noise cancellation plugin for twilio-video.
+- language: rust
+  registry: npm
+  name: '@livekit/plugins-krisp-viva-*'
+  url: https://www.npmjs.com/package/@livekit/plugins-krisp-viva-internal
+  publisher: LiveKit
+  official: false
+  note: Per-platform LiveKit binaries embedding the Krisp VIVA models.
+registries_checked:
+- {registry: npm, result: 2 first-party packages under @krisp.ai}
+- {registry: pypi, result: no first-party package}
+- {registry: pkg.go.dev, result: no public first-party module (Go SDK is licensed distribution)}
+- {registry: crates.io, result: no public first-party crate (Rust SDK is licensed distribution)}
+- {registry: maven central, result: none found}
+- {registry: nuget, result: none found}
+- {registry: rubygems, result: none found}
+- {registry: packagist, result: none found}

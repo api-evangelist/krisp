@@ -1,0 +1,70 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Krisp Developers API
+  version: 1.0.0
+extends: openapi/krisp-developers-openapi.yml
+x-apievangelist-provenance:
+  generated: '2026-07-19'
+  method: generated
+  source: API Evangelist enrichment pipeline
+  note: >-
+    The base description is itself pipeline-derived from Krisp's prose documentation (Krisp publishes no
+    OpenAPI). This overlay layers API Evangelist governance annotations and cross-links to the sibling
+    artifacts in this repo on top of it.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: krisp
+    x-apievangelist-profile: https://apis.io/providers/krisp/
+    x-apievangelist-artifacts:
+      authentication: authentication/krisp-authentication.yml
+      conventions: conventions/krisp-conventions.yml
+      errors: errors/krisp-error-codes.yml
+      lifecycle: lifecycle/krisp-lifecycle.yml
+      changelog: changelog/krisp-changelog.yml
+      packages: packages/krisp-packages.yml
+      sandbox: sandbox/krisp-sandbox.yml
+      data_model: data-model/krisp-data-model.yml
+      asyncapi: asyncapi/krisp-voice-translation-asyncapi.yml
+      agentic_access: agentic-access/krisp-agentic-access.yml
+      conformance: conformance/krisp-conformance.yml
+      security: security/krisp-domain-security.yml
+    x-apievangelist-spec-published-by-provider: false
+- target: $.info
+  update:
+    x-error-format: custom
+    x-rfc9457: false
+    x-idempotency: unsupported
+    x-pagination: none
+    x-rate-limit-headers-published: false
+- target: $.paths['/v2/sdk/voice-translation/session/token'].get
+  update:
+    x-apievangelist-sensitivity: credential-issuing
+    x-apievangelist-guidance: >-
+      Call this from a trusted backend only. The response contains a session_key that grants access to the
+      streaming translation service; hand only that session key to clients, never the account API key.
+    x-agentic-access:
+      action-class: acting
+      consequence: write
+      audit: required
+- target: $.paths['/voice-translation/languages'].get
+  update:
+    x-apievangelist-guidance: >-
+      Fetch at session start rather than caching — Krisp documents the supported-language list as dynamic.
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+- target: $.paths['/v2/sdk/versions/{id}/download-urls'].get
+  update:
+    x-apievangelist-sensitivity: licensed-artifact
+    x-apievangelist-guidance: >-
+      Returned S3 URLs are short-lived (data.expires_in, e.g. 300 seconds). Resolve and consume them
+      immediately inside the pipeline run; do not persist them in build caches or logs.
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+- target: $.components.securitySchemes.ApiKeyAuth
+  update:
+    x-apievangelist-rotation: >-
+      Rotate in the developer dashboard at https://developers.krisp.ai/. Prefer short expiration_ttl values
+      on minted session keys so leaked credentials expire quickly.

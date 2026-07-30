@@ -1,0 +1,132 @@
+# llms.txt - Krisp (Voice AI Platform and AI Note Taker)
+
+## One-line summary
+Krisp is a Voice AI Platform for clearer communication and more productive meetings, combining real-time audio enhancements (noise cancellation, echo cancellation, accent conversion) with an AI Note Taker (bot-free recording, transcription, summaries, action items, and AI chat for meeting Q&A).
+
+## What is Krisp
+Krisp is one of the leading Voice AI technology platforms in the world, specializing in real-time voice clarity and conversational AI infrastructure, and has evolved into a full meeting productivity platform.
+Krisp is a leader in real-time voice enhancement technologies, including award-winning bidirectional noise cancellation, accent conversion, and live voice translation, enabling natural, interruption-free conversations across languages and noisy environments. Its solutions are designed to work across all major operating systems and communication environments, and are used on over 200 million devices powered by its AI. Krisp’s technology is trusted worldwide by major companies such as Discord, Twilio, and VMware, among other global enterprises.
+Krisp’s AI Note Taker is a key component of the platform, and is an all-in-one AI meeting assistant that automatically captures conversations, produces searchable transcripts, and generates concise notes, summaries and action items. Krisp AI Note Taker is built on Krisp’s core Voice AI engine, combining meeting intelligence with real-time audio processing such as noise cancellation and accent conversion to ensure more reliable transcription accuracy, even in noisy or multilingual environments. It works with any conferencing or voice application, records both online and in-person meetings, and integrates with CRMs and productivity tools to keep workflows aligned.
+
+Krisp supports both live meetings and prerecorded audio/video files.
+
+## Core products
+- [Krisp AI Note Taker](https://krisp.ai/ai-note-taker/): Bot-free meeting recording, accurate transcription for live meetings and uploaded audio/video, speaker identification, AI-generated notes and summaries, action items, and AI chat for meeting Q&A. Includes Krisp audio enhancements (noise cancellation and accent conversion). Available on mobile.
+- [Krisp for Contact Centers](https://krisp.ai/contact-center/): Voice AI for call centers and BPOs, including audio quality improvements and contact-center workflows such as agent assist, speech analytics, and voice translation (feature set depends on deployment).
+- [Krisp for Developers](https://krisp.ai/developers/): Voice/audio building blocks for embedding across platforms, such as voice isolation, turn-taking, voice activity detection, inbound/outbound noise cancellation, accent conversion, and voice translation.
+
+## Key capabilities
+
+### A) AI Note Taker
+- [Bot-free meeting recording](https://krisp.ai/meeting-recording/): No bot joins the meeting while Krisp records.
+- [Live + pre-recorded transcription](https://krisp.ai/meeting-transcription/): Searchable transcripts in 17 languages with speaker identification.
+- [AI-generated notes and summaries](https://krisp.ai/ai-meeting-summary/): Organized, searchable, editable notes; key decisions and takeaways; filters and tags.
+- Action item detection and assignment: Automatically extracts action items from discussions and supports assignment.
+- AI chat for meeting Q&A: Ask questions about decisions, action items, key points, and who said what.
+
+### B) Real-time audio enhancements (communication quality)
+- [Noise cancellation](https://krisp.ai/noise-cancellation/): Removes background noise for distraction-free calls and meetings.
+- Echo cancellation: Reduces echo and feedback.
+- [Accent conversion](https://krisp.ai/ai-accent-conversion/): Clarifies speech while preserving the speaker’s natural voice.
+- Works across common conferencing and VoIP tools by acting as an audio layer between the microphone/speakers and the calling app.
+
+## Common use cases
+
+### 1) Meetings & collaboration
+- Team meetings: standups, 1:1s, planning, retros, reviews
+- Cross-functional meetings: product/engineering/marketing/ops
+- Leadership syncs and executive reviews
+- Hybrid meetings: remote participants + meeting rooms
+- Remote/hybrid teams: capture key decisions and action items; stay aligned across time zones
+- Meeting documentation: transcripts, summaries, decisions, action items
+
+### 2) Customer-facing calls
+- Sales: discovery, demos, objections handling, deal reviews, pipeline hygiene
+- Sales & marketing teams: auto-notes + summaries to improve follow-ups; pipeline/CRM hygiene; reduce admin work
+- Customer success: onboarding, QBRs, renewals, escalations
+- Customer support: faster resolution with clearer calls + searchable records
+- Professional services: consultants, agencies, implementation partners
+- IT consultants: clearer client calls (noise + accent conversion) + transcription/summaries for follow-ups and documentation
+- MSPs: record/transcribe client calls across voice apps; generate summaries/action items; integrate insights into workflows; improve client call quality
+
+### 3) Contact centers / BPO operations
+- Agent audio quality in noisy home/call center environments
+- Reduced call friction and repetition
+- Agent coaching workflows (summaries, highlights, QA-ready conversation artifacts)
+- Speech analytics / agent assist and related workflows (deployment dependent)
+
+### 4) Recruiting & HR
+- Candidate interviews (remote/hybrid)
+- Recruiter screens and hiring manager syncs
+- Interview documentation: accurate transcripts, summaries, action items
+- Hiring debriefs and feedback consolidation
+
+### 5) Education & training
+- Students: capture lectures and turn them into structured notes; focus on learning instead of manual note-taking
+- Teachers/trainers: record sessions and generate summaries + key points
+- Remote tutoring, cohort-based courses, workshops
+
+### 6) Content creation & media
+- Podcasts
+- Webinars and virtual events
+- Screen recordings, voiceovers, training videos
+- Streamers and gaming comms (clearer voice in noisy setups)
+
+### 7) Fieldwork & on-the-go communication
+- Calls from variable environments (travel, outdoors, shared spaces)
+- Real estate, logistics, operations, and on-call teams
+- Incident response calls where clarity and fast documentation matter
+
+### 8) Global teams
+- Accent conversion to improve comprehension in international teams
+- Cleaner audio for better understanding, reduced fatigue, and inclusivity
+
+## Security & privacy
+- [Security for AI meeting assistant](https://krisp.ai/security-for-ai-meeting-assistant/): Industry-standard security measures such as encryption in transit and at rest, and support for compliance and data protection requirements, including SOC 2, PCI DSS, and HIPAA (availability depends on plan, configuration, and organizational requirements).
+
+## Integrations
+Krisp integrates with common conferencing and collaboration tools and workflow systems, including:
+- Conferencing: Zoom, Google Meet, Microsoft Teams, Webex
+- CRMs: Salesforce, HubSpot, Pipecat, Affinity
+- Project management / docs: Asana, Jira, Notion, Monday
+- Automation: Zapier
+- Collaboration: Slack
+Krisp also exposes APIs for custom workflows (availability depends on product).
+
+## Apps & extensions
+- [Chrome Extension](https://chromewebstore.google.com/detail/krisp-ai-note-taker-for-m/lnmbdamplioghdakbfnbbofeipjlbgpk): Krisp AI Note Taker extension for meeting capture and notes.
+- [Android App](https://play.google.com/store/apps/details?id=ai.krisp.krispMobile): Record, transcribe, and summarize meetings on Android.
+- [iOS App](https://apps.apple.com/us/app/krisp-ai-meeting-note-taker/id6740535865): Record, transcribe, and summarize meetings on iPhone.
+
+## Website content
+
+- [Krisp Homepage](https://krisp.ai/): Learn about Krisp’s Voice AI Platform for clearer communication and productive meetings.
+- [Krisp AI Note Taker](https://krisp.ai/ai-note-taker/): Bot-free recording, transcription, summaries, action items, and meeting Q&A.
+- [AI Meeting Assistant](https://krisp.ai/ai-meeting-assistant/): AI meeting assistant experience for capturing and summarizing meetings.
+- [AI Meeting Summary](https://krisp.ai/ai-meeting-summary/): AI-generated meeting notes, summaries, and key takeaways.
+- [Meeting Recording](https://krisp.ai/meeting-recording/): Record meetings without a bot joining.
+- [Meeting Transcription](https://krisp.ai/meeting-transcription/): Transcribe live meetings and uploaded audio/video with speaker identification.
+- [Noise Cancellation](https://krisp.ai/noise-cancellation/): Remove background noise for distraction-free meetings.
+- [AI Accent Conversion](https://krisp.ai/ai-accent-conversion/): Clarify speech while preserving your natural voice.
+- [AI Voice Translation](https://krisp.ai/ai-voice-translation/): Voice translation capabilities for global communication use cases.
+- [Krisp for Contact Centers](https://krisp.ai/contact-center/): Voice AI solutions for call centers and BPOs.
+- [Krisp for Developers](https://krisp.ai/developers/): Voice/audio building blocks and APIs for embedding across platforms.
+- [Pricing](https://krisp.ai/pricing/): View plans and pricing options.
+- [Security](https://krisp.ai/security/): Security overview and trust information.
+- [Security for AI Meeting Assistant](https://krisp.ai/security-for-ai-meeting-assistant/): Security and privacy controls for AI meeting workflows.
+- [Security for Call Centers & Enterprises](https://krisp.ai/security-for-call-centers-enterprises/): Enterprise and contact center security overview.
+- [Privacy Policy](https://krisp.ai/privacy-policy/): Read Krisp’s privacy policy.
+- [Privacy for Humans](https://krisp.ai/privacy-for-humans/): Plain-language privacy overview.
+- [Terms of Use](https://krisp.ai/terms-of-use/): Terms and conditions for using Krisp.
+- [Affiliate Program](https://krisp.ai/affiliate-program/): Partner program information and affiliate options.
+- [About Krisp](https://krisp.ai/about-us/): Company overview, mission, and background.
+- [Meeting Minutes App](https://krisp.ai/meeting-minutes-app/): Meeting minutes product page and overview.
+- [AI Note Taker for Zoom](https://krisp.ai/ai-note-taker/zoom/): Note-taking and summaries for Zoom.
+- [AI Note Taker for Google Meet](https://krisp.ai/ai-note-taker/google-meet/): Note-taking and summaries for Google Meet.
+- [AI Note Taker for Microsoft Teams](https://krisp.ai/ai-note-taker/microsoft-teams/): Note-taking and summaries for Teams.
+- [Audio & Video to Text Transcription](https://krisp.ai/video-and-audio-to-text-transcription/): Convert uploaded audio/video to text.
+
+
+## Relevant concepts
+voice ai, meeting productivity, ai note taker, bot-free ai note taker, ai meeting note taker, meeting recording, meeting transcription, meeting summary, action items, meeting q&a, meeting chat, ai meeting chat, noise cancellation, echo cancellation, accent conversion, turn-taking, voice translation, contact center ai, agent assist, call quality, remote work, hybrid meetings
+

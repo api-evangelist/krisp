@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+probe: true
+url: https://trust.krisp.ai/
+platform: Vanta Trust Center
+notes: >-
+  trust.krisp.ai returns HTTP 200 and is a Vanta-hosted Trust Center. The certification list is rendered
+  client-side, so the automated probe could not extract named certifications from the served HTML; the
+  certifications below are taken from Krisp's own published pages rather than scraped from the trust
+  center itself.
+certifications:
+- SOC 2
+- PCI DSS
+- HIPAA
+certification_caveat: >-
+  Krisp publishes these as supported compliance and data-protection requirements with availability
+  depending on plan, configuration, and organizational requirements — not as a blanket claim for every
+  product tier.
+evidence:
+- source: https://trust.krisp.ai/
+  kind: trust-center
+  status: 200
+  keywords:
+  - vanta
+- source: https://krisp.ai/llms.txt
+  kind: provider-published llms.txt
+  quote: >-
+    Industry-standard security measures such as encryption in transit and at rest, and support for
+    compliance and data protection requirements, including SOC 2, PCI DSS, and HIPAA (availability
+    depends on plan, configuration, and organizational requirements).
+- source: https://krisp.ai/security/
+  kind: security-overview
+  status: 200
+related:
+- security/krisp-vulnerability-disclosure.yml
+- conformance/krisp-conformance.yml

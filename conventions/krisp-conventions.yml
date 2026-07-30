@@ -1,0 +1,80 @@
+generated: '2026-07-19'
+method: searched
+source: https://sdk-docs.krisp.ai/docs/voice-translation-api.md
+docs: https://sdk-docs.krisp.ai/
+authentication:
+  style: api-key
+  header: 'Authorization: api-key {API_KEY}'
+  streaming: session key on the WSS query string
+  detail: authentication/krisp-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    Krisp publishes no idempotency key, no Idempotency-Key header, and no retry-safety contract. The
+    developer surface is a streaming session API plus two read-only GET operations, so there are no
+    non-idempotent write operations that would require one. No Idempotency pointer is emitted.
+pagination:
+  supported: false
+  note: >-
+    No paginated collection endpoints are documented. The list-languages operation returns the full list
+    in a single response and the docs explicitly advise fetching it at session start rather than caching.
+versioning:
+  scheme: uri-path
+  current: v2
+  example: https://api.developers.krisp.ai/v2/sdk/versions/{id}/download-urls
+  note: >-
+    The list-languages endpoint is documented in the API reference without a version prefix
+    (GET /voice-translation/languages), so version prefixing is not applied uniformly across the
+    published surface.
+  sdk_versioning: semver per SDK family and language binding, tracked in the changelog
+  changelog: https://sdk-docs.krisp.ai/changelog
+request_tracing:
+  client_supplied: metadata.reference_id
+  client_supplied_note: >-
+    An optional correlation id supplied in the session config metadata and echoed back on every
+    transcript, translation, and error event.
+  server_supplied: req_id
+  server_supplied_note: Returned on REST responses; quote it to support.
+  utterance_correlation: utterance_id
+  utterance_note: Links interim transcript events to their final transcript and translation events.
+error_envelope:
+  format: custom
+  rfc9457: false
+  shape: '{"error": {"code", "reason", "description", "reference_id"}}'
+  detail: errors/krisp-error-codes.yml
+rate_limit_signaling:
+  headers_published: false
+  signal: 429 Too Many Requests error event (rate limit exceeded or max concurrent connections exceeded)
+  numeric_limits_published: false
+content_negotiation:
+  rest: application/json
+  streaming:
+    control: JSON text frames (WebSocket opcode 0x1)
+    media: binary frames (WebSocket opcode 0x2)
+    audio_formats: [pcm_s16le, opus]
+    sample_rate: 16000
+    channels: 1
+    frame_duration_ms: 20
+    note: >-
+      Clients must pace audio in real time — one PCM chunk per input_frame_duration ms. At 16 kHz mono
+      s16le that is 640 bytes per 20 ms chunk.
+session_protocol:
+  handshake: >-
+    Open wss://streaming.krisp.ai/vt?authorization=Api-Key SESSION_KEY, then send exactly one JSON config
+    message before any audio frame.
+  config_required: [source_language, target_language, voice]
+  config_optional: [audio.format, audio.sample_rate, audio.channels, vocabulary, translation_dictionary,
+    transcript.interim, transcript.final, transcript.translate, features.background_voice_cancellation,
+    metadata.reference_id]
+  teardown: >-
+    Drain trailing events (allow ~2s for the final transcript, translation, and audio to land) before
+    closing. Close is idempotent.
+localization:
+  language_codes: BCP 47 (RFC 5646)
+  note: Use full locale codes such as en-US, not bare en. The supported list is dynamic.
+  reference: https://sdk-docs.krisp.ai/docs/supported-languages.md
+related:
+- authentication/krisp-authentication.yml
+- errors/krisp-error-codes.yml
+- lifecycle/krisp-lifecycle.yml
+- asyncapi/krisp-voice-translation-asyncapi.yml

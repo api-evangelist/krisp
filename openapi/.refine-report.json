@@ -1,0 +1,16 @@
+{
+  "provider": "krisp",
+  "sources": [
+    "krisp-sdk-distribution-api-openapi.yml",
+    "krisp-voice-translation-api-openapi.yml"
+  ],
+  "outputs": [
+    "krisp-sdk-distribution-api-openapi.yml",
+    "krisp-voice-translation-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

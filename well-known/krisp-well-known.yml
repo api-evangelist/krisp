@@ -1,0 +1,50 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of Krisp public hosts
+hosts:
+- https://krisp.ai
+- https://sdk-docs.krisp.ai
+- https://developers.krisp.ai
+- https://api.developers.krisp.ai
+documents:
+- host: https://krisp.ai
+  path: /.well-known/security.txt
+  standard: RFC 9116
+  status: 200
+  file: krisp-security.txt
+- host: https://krisp.ai
+  path: /.well-known/api-catalog
+  standard: RFC 9727
+  status: 404
+- host: https://krisp.ai
+  path: /.well-known/ai-plugin.json
+  status: 404
+- host: https://krisp.ai
+  path: /.well-known/oauth-authorization-server
+  standard: RFC 8414
+  status: 404
+- host: https://sdk-docs.krisp.ai
+  path: /.well-known/security.txt
+  standard: RFC 9116
+  status: 404
+- host: https://sdk-docs.krisp.ai
+  path: /.well-known/api-catalog
+  standard: RFC 9727
+  status: 404
+- host: https://developers.krisp.ai
+  path: /.well-known/openid-configuration
+  standard: OpenID Connect Discovery 1.0
+  status: 200
+  valid: false
+  note: >-
+    Returns HTTP 200 but serves the developers.krisp.ai single-page-app HTML shell, not a JSON OIDC
+    discovery document. Treated as NOT present — Krisp publishes no OIDC discovery endpoint.
+llms_txt:
+- host: https://sdk-docs.krisp.ai
+  path: /llms.txt
+  status: 200
+  file: ../llms/krisp-llms.txt
+- host: https://krisp.ai
+  path: /llms.txt
+  status: 200
+  file: ../llms/krisp-site-llms.txt

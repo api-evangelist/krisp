@@ -1,0 +1,75 @@
+generated: '2026-07-19'
+method: searched
+source: https://sdk-docs.krisp.ai/changelog
+docs: https://sdk-docs.krisp.ai/changelog
+scheme: semver, per SDK family and language binding
+dated: false
+notes: >-
+  Krisp publishes release notes per SDK build rather than one dated platform changelog. The index does not
+  expose publication dates, so no date field is recorded here. This is the recent window surfaced by the
+  docs index and /llms.txt as of the capture date, not full history.
+entries:
+- product: RTC JS Browser SDK
+  version: 2.3.9
+  url: https://sdk-docs.krisp.ai/changelog/rtc-js-sdk-239.md
+  breaking: false
+  highlights:
+  - Improved SharedArrayBuffer fallback — the SDK now detects when SharedArrayBuffer is unavailable and
+    automatically falls back to postMessage transport instead of breaking audio processing.
+  - Fixed dead mic issue — when Noise Cancellation is enabled mid-call, raw audio is passed through until
+    processed audio is ready, preventing the microphone from being muted during filter warm-up. Accent
+    Conversion outputs silence during warm-up by design.
+  - Fixed a Chrome AudioWorklet race condition — filter creation now retries until the AudioWorklet is
+    registered.
+  - WASM model and session initialization failures now trigger the filter's error event instead of
+    incorrectly reporting the filter as ready; a related memory leak was fixed.
+- product: VIVA Python SDK
+  version: 1.11.0
+  url: https://sdk-docs.krisp.ai/changelog/viva-python-sdk-v1110.md
+  breaking: true
+  breaking_note: The previous Interrupt Prediction model file is not compatible with the new SDK.
+  additions:
+  - Introduced stats API.
+  highlights:
+  - Reduced CPU consumption for Voice Isolation models by 30–40% on armv8a hardware using FP16 SIMD
+    instructions where available.
+  - Updated the Interrupt Prediction model file krisp-viva-ip-v1.1 with updated model encryption; no
+    output quality change.
+- product: VIVA Node.js SDK
+  version: 1.6.0
+  url: https://sdk-docs.krisp.ai/changelog/viva-nodejs-sdk-v160.md
+  breaking: true
+  breaking_note: The previous Interrupt Prediction model file is not compatible with the new SDK.
+  additions:
+  - Introduced stats API.
+  highlights:
+  - Reduced CPU consumption for Voice Isolation models by 30–40% on armv8a hardware using FP16 SIMD.
+  - Updated the Interrupt Prediction model file krisp-viva-ip-v1.1 with updated model encryption.
+- product: VIVA Go SDK
+  version: 1.4.0
+  url: https://sdk-docs.krisp.ai/changelog/viva-go-sdk-v140.md
+  breaking: true
+  breaking_note: >-
+    Requires Krisp VIVA C/C++ SDK v9.19.0 and above; the previous Interrupt Prediction model file is not
+    compatible with the new SDK.
+  additions:
+  - Introduced TTS Detection API.
+  - New krisp-viva-vi-tel-v2.1 16 kHz Voice Isolation model optimized for 8–16 kHz telephony.
+  highlights:
+  - Separated Go SDK UAR (usage auto reporting) and non-UAR builds; new builds no longer require build tags.
+  - Reduced CPU consumption for Voice Isolation models by 30–40% on armv8a hardware using FP16 SIMD.
+- product: VIVA C/C++ SDK
+  version: 9.19.0
+  url: https://sdk-docs.krisp.ai/changelog/viva-cc-sdk-v9190.md
+  breaking: true
+  breaking_note: The previous Interrupt Prediction model file is not compatible with the new SDK.
+  additions:
+  - Introduced the new TTS detection API.
+  - New krisp-viva-vi-tel-v2.1 16 kHz Voice Isolation model optimized for 8–16 kHz telephony, reducing
+    voice suppression and improving WER accuracy over krisp-viva-vi-tel-v2.
+  highlights:
+  - Reduced CPU consumption for Voice Isolation models by 30–40% on armv8a hardware using FP16 SIMD.
+  - Updated the Interrupt Prediction model file krisp-viva-ip-v1.1 with updated model encryption.
+related:
+- lifecycle/krisp-lifecycle.yml
+- packages/krisp-packages.yml
