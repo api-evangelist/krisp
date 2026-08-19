@@ -4,15 +4,18 @@ status: candidate
 source: openapi/krisp-developers-openapi.yml
 published_by_provider: false
 search_evidence:
-- {target: 'https://mcp.krisp.ai/', status: 404}
-- {target: sdk-docs.krisp.ai /llms.txt index, result: no MCP server documented}
-- {target: krisp.ai /llms.txt, result: no MCP server documented}
-- {target: npm registry search "krisp", result: 'only a third-party CLI (@statechange/krisp-cli) that
-    references an unofficial "Krisp MCP server"; no Krisp-published MCP package'}
-notes: >-
-  Krisp publishes NO official MCP server. The tools below are a candidate surface derived from the REST
-  operations Krisp documents, offered as a starting point for anyone building one. No MCPServer pointer is
-  wired into apis.yml because the server does not exist — emitting one would misreport the provider.
+- target: https://mcp.krisp.ai/
+  status: 404
+- target: sdk-docs.krisp.ai /llms.txt index
+  result: no MCP server documented
+- target: krisp.ai /llms.txt
+  result: no MCP server documented
+- target: npm registry search "krisp"
+  result: only a third-party CLI (@statechange/krisp-cli) that references an unofficial "Krisp MCP server";
+    no Krisp-published MCP package
+notes: Krisp publishes NO official MCP server. The tools below are a candidate surface derived from the
+  REST operations Krisp documents, offered as a starting point for anyone building one. No MCPServer pointer
+  is wired into apis.yml because the server does not exist — emitting one would misreport the provider.
 server:
   name: krisp
   transport: http
@@ -21,9 +24,11 @@ tools:
 - name: create_voice_translation_session_token
   description: Mint a short-lived Krisp Voice Translation session key from the account API key.
   source_operation: openapi/krisp-developers-openapi.yml#createVoiceTranslationSessionToken
-  inputs: [expiration_ttl]
+  inputs:
+  - expiration_ttl
   read_only: false
-  note: Returns a credential — an MCP implementation should treat the response as sensitive and never log it.
+  note: Returns a credential — an MCP implementation should treat the response as sensitive and never
+    log it.
 - name: list_voice_translation_languages
   description: List the languages currently available for Krisp voice translation, as BCP 47 codes.
   source_operation: openapi/krisp-developers-openapi.yml#listVoiceTranslationLanguages
@@ -32,11 +37,18 @@ tools:
 - name: get_sdk_version_download_urls
   description: Get short-lived download URLs for a licensed Krisp SDK version package and its model files.
   source_operation: openapi/krisp-developers-openapi.yml#getSdkVersionDownloadUrls
-  inputs: [id]
+  inputs:
+  - id
   read_only: true
 out_of_scope:
-  - The real-time translation itself is a bidirectional WebSocket audio stream
-    (asyncapi/krisp-voice-translation-asyncapi.yml) and is not expressible as a request/response MCP tool.
+- The real-time translation itself is a bidirectional WebSocket audio stream (asyncapi/krisp-voice-translation-asyncapi.yml)
+  and is not expressible as a request/response MCP tool.
 related:
 - openapi/krisp-developers-openapi.yml
 - asyncapi/krisp-voice-translation-asyncapi.yml
+deployment:
+  mode: none
+  verified: derived
+  tools: 3
+  checked: '2026-08-12'
+  source: catalog MCP census

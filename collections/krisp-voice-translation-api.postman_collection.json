@@ -1,0 +1,567 @@
+{
+  "item": [
+    {
+      "id": "1e54effa-7ee1-4407-9bb8-13173550e2c9",
+      "name": "Voice Translation",
+      "description": {
+        "content": "Session minting and language discovery for the real-time voice translation service.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b925529a-aec5-43d2-addf-15e969359823",
+          "name": "Mint a Voice Translation session key",
+          "request": {
+            "name": "Mint a Voice Translation session key",
+            "description": {
+              "content": "Exchanges the long-lived account API key for a short-lived session key. The session key is the only credential passed to the streaming WebSocket endpoint, so the account key never has to reach an untrusted client. Mint this on your backend.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "sdk",
+                "voice-translation",
+                "session",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expiration_ttl",
+                  "value": "<integer>",
+                  "description": "Session key lifetime in MINUTES."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91af3991-1946-4f68-91b8-17f16ce3c7a2",
+              "name": "Session key issued.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "voice-translation",
+                    "session",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expiration_ttl",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"session_key\": \"session_key_...\",\n    \"expires_at\": \"2026-05-04T12:00:00.000Z\",\n    \"key_id\": 123,\n    \"status\": \"active\",\n    \"type\": \"session\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f63ef385-839e-46e5-9cbb-8b3485f358d3",
+              "name": "Missing, invalid, or expired API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "voice-translation",
+                    "session",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expiration_ttl",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a65d1fc3-9cf2-4bf1-9fa9-55ee5f190a98",
+              "name": "Balance exhausted or subscription expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "voice-translation",
+                    "session",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expiration_ttl",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbbfdbd0-46d7-475e-93f9-ac356aa56298",
+              "name": "Rate limit exceeded or max concurrent connections exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "voice-translation",
+                    "session",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expiration_ttl",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0ed9612-1739-4ba6-93ca-c7181daa7be8",
+              "name": "Server failed to process the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "voice-translation",
+                    "session",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expiration_ttl",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "248215b3-96ed-458f-b6ef-f2bf180857e5",
+          "name": "List supported voice translation languages",
+          "request": {
+            "name": "List supported voice translation languages",
+            "description": {
+              "content": "Returns the languages currently available for voice translation. Use the returned language_code values as source_language / target_language when starting a session. The list is dynamic — fetch it at session start rather than hard-coding it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "voice-translation",
+                "languages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e94dbf9-87fc-4395-b5af-4db2f3e1d2fe",
+              "name": "Supported languages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voice-translation",
+                    "languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"code\": 0,\n  \"data\": [\n    {\n      \"name\": \"English (United States)\",\n      \"language_code\": \"en-US\"\n    },\n    {\n      \"name\": \"French\",\n      \"language_code\": \"fr-FR\"\n    },\n    {\n      \"name\": \"German\",\n      \"language_code\": \"de-DE\"\n    }\n  ],\n  \"req_id\": \"...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb17f050-ad26-49fe-b832-d9a12070e04e",
+              "name": "Missing, invalid, or expired API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voice-translation",
+                    "languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34c1d83a-4882-4c71-b995-741be46239de",
+              "name": "Rate limit exceeded or max concurrent connections exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voice-translation",
+                    "languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f2f6955-e131-48f8-987f-6c162c74b2e2",
+              "name": "Server failed to process the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voice-translation",
+                    "languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1578,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.developers.krisp.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2d46ee89-a4d1-491a-82f7-9a4c443a4c80",
+    "name": "Krisp Developers SDK Distribution Voice Translation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "NOT PUBLISHED BY KRISP. Krisp publishes no OpenAPI document. This description is a faithful transcription by the API Evangelist enrichment pipeline of the REST endpoints Krisp documents in prose at https://sdk-docs.krisp.ai/docs/voice-translation-api.md and https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md. Paths, methods, parameters, headers, and response shapes are taken verbatim from those pages; operationIds and schema names were assigned by the pipeline because the source documentation does not name them. The real-time translation surface itself is a WebSocket protocol and is described separately in asyncapi/krisp-voice-translation-asyncapi.yml.\n\nContact Support:\n Name: Krisp Developers",
+      "type": "text/plain"
+    }
+  }
+}

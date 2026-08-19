@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Krisp Developers SDK Distribution Voice Translation API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Voice Translation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mint a Voice Translation session key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.developers.krisp.ai/v2/sdk/voice-translation/session/token",
+            "params": [
+              {
+                "name": "expiration_ttl",
+                "value": "100",
+                "type": "query",
+                "description": "Session key lifetime in MINUTES."
+              }
+            ]
+          },
+          "docs": "Exchanges the long-lived account API key for a short-lived session key. The session key is the only credential passed to the streaming WebSocket endpoint, so the account key never has to reach an untrusted client. Mint this on your backend."
+        },
+        {
+          "info": {
+            "name": "List supported voice translation languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.developers.krisp.ai/voice-translation/languages"
+          },
+          "docs": "Returns the languages currently available for voice translation. Use the returned language_code values as source_language / target_language when starting a session. The list is dynamic — fetch it at session start rather than hard-coding it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

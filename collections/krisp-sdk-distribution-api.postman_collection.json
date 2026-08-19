@@ -1,0 +1,316 @@
+{
+  "item": [
+    {
+      "id": "0c1ee537-d783-4a27-9bee-e4c34e15fc37",
+      "name": "SDK Distribution",
+      "description": {
+        "content": "Programmatic retrieval of licensed SDK packages and model files.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5bec85df-4e19-4512-a27f-6f6154fc6848",
+          "name": "Get short-lived download URLs for an SDK version and its models",
+          "request": {
+            "name": "Get short-lived download URLs for an SDK version and its models",
+            "description": {
+              "content": "Retrieves temporary download URLs for a specific licensed SDK version and its associated model files, for use in CI/CD pipelines, automated testing workflows, or custom deployment scripts. The returned S3 URLs expire after data.expires_in seconds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "sdk",
+                "versions",
+                ":id",
+                "download-urls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The unique version ID of the SDK, found in the SDK Dashboard."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d37768fd-08c1-45b2-837d-7f9c9131d670",
+              "name": "Download URLs issued.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "versions",
+                    ":id",
+                    "download-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique version ID of the SDK, found in the SDK Dashboard."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"expires_in\": 300,\n    \"version\": {\n      \"id\": 42,\n      \"version\": \"1.3.4\",\n      \"display_name\": \"VIVA\",\n      \"os\": \"windows_x64\",\n      \"platform\": \"server\",\n      \"technologies\": [\n        \"viva\"\n      ],\n      \"filename\": \"release.zip\",\n      \"download_url\": \"s3.amazonaws.com...\"\n    },\n    \"models\": [\n      {\n        \"id\": 1,\n        \"technology\": \"voice_isolation\",\n        \"product\": \"viva\",\n        \"filename\": \"model.zip\",\n        \"download_url\": \"s3.amazonaws.com...\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fe80b3f-b327-4371-b3b8-8ecc66b370d2",
+              "name": "Missing, invalid, or expired API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "versions",
+                    ":id",
+                    "download-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique version ID of the SDK, found in the SDK Dashboard."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1316,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b58f9cd-e105-45a5-8208-7fff582a4b97",
+              "name": "Rate limit exceeded or max concurrent connections exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "versions",
+                    ":id",
+                    "download-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique version ID of the SDK, found in the SDK Dashboard."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1316,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6eaf3425-7c2f-40b4-9954-d581145cda6e",
+              "name": "Server failed to process the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sdk",
+                    "versions",
+                    ":id",
+                    "download-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The unique version ID of the SDK, found in the SDK Dashboard."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1316,\n    \"reason\": \"string\",\n    \"description\": \"string\",\n    \"reference_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.developers.krisp.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "85c3d591-2d30-4cbc-b943-680a48f3e119",
+    "name": "Krisp Developers SDK Distribution API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "NOT PUBLISHED BY KRISP. Krisp publishes no OpenAPI document. This description is a faithful transcription by the API Evangelist enrichment pipeline of the REST endpoints Krisp documents in prose at https://sdk-docs.krisp.ai/docs/voice-translation-api.md and https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md. Paths, methods, parameters, headers, and response shapes are taken verbatim from those pages; operationIds and schema names were assigned by the pipeline because the source documentation does not name them. The real-time translation surface itself is a WebSocket protocol and is described separately in asyncapi/krisp-voice-translation-asyncapi.yml.\n\nContact Support:\n Name: Krisp Developers",
+      "type": "text/plain"
+    }
+  }
+}

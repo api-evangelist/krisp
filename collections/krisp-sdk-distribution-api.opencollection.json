@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Krisp Developers SDK Distribution API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SDK Distribution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get short-lived download URLs for an SDK version and its models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.developers.krisp.ai/v2/sdk/versions/:id/download-urls",
+            "params": [
+              {
+                "name": "id",
+                "value": "329",
+                "type": "path",
+                "description": "The unique version ID of the SDK, found in the SDK Dashboard."
+              }
+            ]
+          },
+          "docs": "Retrieves temporary download URLs for a specific licensed SDK version and its associated model files, for use in CI/CD pipelines, automated testing workflows, or custom deployment scripts. The returned S3 URLs expire after data.expires_in seconds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
