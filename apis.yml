@@ -9,6 +9,18 @@ description: 'Krisp is a Voice AI platform whose real-time speech-enhancement mo
   integrations for LiveKit, WebRTC, and Pipecat. Krisp also runs a self-serve Voice Translation API — a
   streaming WebSocket speech-to-speech translation service covering 61 languages behind a REST session-token
   mint — and a programmatic SDK and model download REST API for CI/CD pipelines.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
