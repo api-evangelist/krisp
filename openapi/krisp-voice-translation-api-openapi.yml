@@ -1,9 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Krisp Developers SDK Distribution Voice Translation API
+  title: Krisp Developers Voice Translation API
   version: v2
   summary: REST surface of the Krisp developer platform — Voice Translation session minting, supported languages, and programmatic SDK/model downloads.
-  description: NOT PUBLISHED BY KRISP. Krisp publishes no OpenAPI document. This description is a faithful transcription by the API Evangelist enrichment pipeline of the REST endpoints Krisp documents in prose at https://sdk-docs.krisp.ai/docs/voice-translation-api.md and https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md. Paths, methods, parameters, headers, and response shapes are taken verbatim from those pages; operationIds and schema names were assigned by the pipeline because the source documentation does not name them. The real-time translation surface itself is a WebSocket protocol and is described separately in asyncapi/krisp-voice-translation-asyncapi.yml.
+  description: NOT PUBLISHED BY KRISP.
   x-apievangelist-provenance:
     generated: '2026-07-19'
     method: derived
@@ -96,61 +96,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded or max concurrent connections exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PaymentRequired:
-      description: Balance exhausted or subscription expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server failed to process the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SessionTokenResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SessionToken'
-    LanguagesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        code:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Language'
-        req_id:
-          type: string
-    Language:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Human-readable language name.
-          example: English (United States)
-        language_code:
-          type: string
-          description: BCP 47 (RFC 5646) locale code.
-          example: en-US
     SessionToken:
       type: object
       properties:
@@ -184,6 +130,60 @@ components:
               type: string
             reference_id:
               type: string
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable language name.
+          example: English (United States)
+        language_code:
+          type: string
+          description: BCP 47 (RFC 5646) locale code.
+          example: en-US
+    SessionTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SessionToken'
+    LanguagesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        req_id:
+          type: string
+  responses:
+    PaymentRequired:
+      description: Balance exhausted or subscription expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

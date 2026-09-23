@@ -1,9 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Krisp Developers SDK Distribution API
   version: v2
   summary: REST surface of the Krisp developer platform — Voice Translation session minting, supported languages, and programmatic SDK/model downloads.
-  description: NOT PUBLISHED BY KRISP. Krisp publishes no OpenAPI document. This description is a faithful transcription by the API Evangelist enrichment pipeline of the REST endpoints Krisp documents in prose at https://sdk-docs.krisp.ai/docs/voice-translation-api.md and https://sdk-docs.krisp.ai/docs/programmatic-sdk-model-downloads-api.md. Paths, methods, parameters, headers, and response shapes are taken verbatim from those pages; operationIds and schema names were assigned by the pipeline because the source documentation does not name them. The real-time translation surface itself is a WebSocket protocol and is described separately in asyncapi/krisp-voice-translation-asyncapi.yml.
+  description: NOT PUBLISHED BY KRISP.
   x-apievangelist-provenance:
     generated: '2026-07-19'
     method: derived
@@ -74,6 +74,12 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded or max concurrent connections exceeded.
       content:
@@ -86,32 +92,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server failed to process the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SdkDownloadUrlsResponse:
+    Error:
       type: object
+      description: Krisp error payload. Not RFC 9457 problem+json.
       properties:
-        success:
-          type: boolean
-          description: Indicates whether the API request was successful.
-        data:
+        error:
           type: object
           properties:
-            expires_in:
+            code:
               type: integer
-              description: Lifespan of the generated download URLs in seconds.
-              example: 300
-            version:
-              $ref: '#/components/schemas/SdkVersion'
-            models:
-              type: array
-              items:
-                $ref: '#/components/schemas/SdkModel'
+              description: HTTP-style status code.
+            reason:
+              type: string
+            description:
+              type: string
+            reference_id:
+              type: string
     SdkModel:
       type: object
       properties:
@@ -155,22 +152,25 @@ components:
         download_url:
           type: string
           description: Short-lived S3 download URL.
-    Error:
+    SdkDownloadUrlsResponse:
       type: object
-      description: Krisp error payload. Not RFC 9457 problem+json.
       properties:
-        error:
+        success:
+          type: boolean
+          description: Indicates whether the API request was successful.
+        data:
           type: object
           properties:
-            code:
+            expires_in:
               type: integer
-              description: HTTP-style status code.
-            reason:
-              type: string
-            description:
-              type: string
-            reference_id:
-              type: string
+              description: Lifespan of the generated download URLs in seconds.
+              example: 300
+            version:
+              $ref: '#/components/schemas/SdkVersion'
+            models:
+              type: array
+              items:
+                $ref: '#/components/schemas/SdkModel'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

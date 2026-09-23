@@ -1,0 +1,32 @@
+# Front Door AI Index — krisp — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: krisp
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: krisp.ai
+  final_host: krisp.ai
+  ownership: own
+  owner: krisp
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 83
+  host_score: 83
+  density: 42.39
+  words: 1958
+  tiers:
+    agentic: 6
+    core: 76
+    model: 1
+  ambiguous: 18
+  top_terms:
+    AI: 76
+    agent: 16
+    AI assistant: 3
+    AI agent: 2
+    ChatGPT: 1
+    automation: 1
+    embedding: 1
+    smart: 1
