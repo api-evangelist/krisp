@@ -73,58 +73,26 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    InternalServerError:
-      description: Server failed to process the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded or max concurrent connections exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    SdkDownloadUrlsResponse:
       type: object
-      description: Krisp error payload. Not RFC 9457 problem+json.
       properties:
-        error:
+        success:
+          type: boolean
+          description: Indicates whether the API request was successful.
+        data:
           type: object
           properties:
-            code:
+            expires_in:
               type: integer
-              description: HTTP-style status code.
-            reason:
-              type: string
-            description:
-              type: string
-            reference_id:
-              type: string
-    SdkModel:
-      type: object
-      properties:
-        id:
-          type: integer
-        technology:
-          type: string
-          example: voice_isolation
-        product:
-          type: string
-          example: viva
-        filename:
-          type: string
-          example: model.zip
-        download_url:
-          type: string
+              description: Lifespan of the generated download URLs in seconds.
+              example: 300
+            version:
+              $ref: '#/components/schemas/SdkVersion'
+            models:
+              type: array
+              items:
+                $ref: '#/components/schemas/SdkModel'
     SdkVersion:
       type: object
       properties:
@@ -152,25 +120,57 @@ components:
         download_url:
           type: string
           description: Short-lived S3 download URL.
-    SdkDownloadUrlsResponse:
+    SdkModel:
       type: object
       properties:
-        success:
-          type: boolean
-          description: Indicates whether the API request was successful.
-        data:
+        id:
+          type: integer
+        technology:
+          type: string
+          example: voice_isolation
+        product:
+          type: string
+          example: viva
+        filename:
+          type: string
+          example: model.zip
+        download_url:
+          type: string
+    Error:
+      type: object
+      description: Krisp error payload. Not RFC 9457 problem+json.
+      properties:
+        error:
           type: object
           properties:
-            expires_in:
+            code:
               type: integer
-              description: Lifespan of the generated download URLs in seconds.
-              example: 300
-            version:
-              $ref: '#/components/schemas/SdkVersion'
-            models:
-              type: array
-              items:
-                $ref: '#/components/schemas/SdkModel'
+              description: HTTP-style status code.
+            reason:
+              type: string
+            description:
+              type: string
+            reference_id:
+              type: string
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

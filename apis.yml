@@ -58,7 +58,8 @@ tags:
 - WebRTC
 - Conversational AI
 - SDK
-- Machine-Learning
+- Machine Learning
+- Real-Time
 tags_raw:
 - Company
 - Ai
@@ -72,6 +73,8 @@ tags_raw:
 - Conversational AI
 - SDK
 - Machine Learning
+- Machine-Learning
+- Real-Time
 apis:
 - aid: krisp:krisp-sdk-distribution-api
   name: Krisp SDK Distribution API

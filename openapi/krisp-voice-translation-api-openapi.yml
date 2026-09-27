@@ -96,7 +96,37 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PaymentRequired:
+      description: Balance exhausted or subscription expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    SessionTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SessionToken'
     SessionToken:
       type: object
       properties:
@@ -114,6 +144,17 @@ components:
         type:
           type: string
           example: session
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable language name.
+          example: English (United States)
+        language_code:
+          type: string
+          description: BCP 47 (RFC 5646) locale code.
+          example: en-US
     Error:
       type: object
       description: Krisp error payload. Not RFC 9457 problem+json.
@@ -130,22 +171,6 @@ components:
               type: string
             reference_id:
               type: string
-    Language:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Human-readable language name.
-          example: English (United States)
-        language_code:
-          type: string
-          description: BCP 47 (RFC 5646) locale code.
-          example: en-US
-    SessionTokenResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SessionToken'
     LanguagesResponse:
       type: object
       properties:
@@ -159,31 +184,6 @@ components:
             $ref: '#/components/schemas/Language'
         req_id:
           type: string
-  responses:
-    PaymentRequired:
-      description: Balance exhausted or subscription expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded or max concurrent connections exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server failed to process the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
