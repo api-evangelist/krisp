@@ -74,6 +74,38 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    SdkModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        technology:
+          type: string
+          example: voice_isolation
+        product:
+          type: string
+          example: viva
+        filename:
+          type: string
+          example: model.zip
+        download_url:
+          type: string
+    Error:
+      type: object
+      description: Krisp error payload. Not RFC 9457 problem+json.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP-style status code.
+            reason:
+              type: string
+            description:
+              type: string
+            reference_id:
+              type: string
     SdkDownloadUrlsResponse:
       type: object
       properties:
@@ -120,47 +152,15 @@ components:
         download_url:
           type: string
           description: Short-lived S3 download URL.
-    SdkModel:
-      type: object
-      properties:
-        id:
-          type: integer
-        technology:
-          type: string
-          example: voice_isolation
-        product:
-          type: string
-          example: viva
-        filename:
-          type: string
-          example: model.zip
-        download_url:
-          type: string
-    Error:
-      type: object
-      description: Krisp error payload. Not RFC 9457 problem+json.
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: HTTP-style status code.
-            reason:
-              type: string
-            description:
-              type: string
-            reference_id:
-              type: string
   responses:
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded or max concurrent connections exceeded.
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
       content:
         application/json:
           schema:

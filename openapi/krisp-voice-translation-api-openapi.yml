@@ -96,54 +96,20 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded or max concurrent connections exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server failed to process the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PaymentRequired:
-      description: Balance exhausted or subscription expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SessionTokenResponse:
+    LanguagesResponse:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/SessionToken'
-    SessionToken:
-      type: object
-      properties:
-        session_key:
-          type: string
-          description: Short-lived key passed to the streaming WebSocket endpoint.
-        expires_at:
-          type: string
-          format: date-time
-        key_id:
+        success:
+          type: boolean
+        code:
           type: integer
-        status:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        req_id:
           type: string
-          example: active
-        type:
-          type: string
-          example: session
     Language:
       type: object
       properties:
@@ -171,19 +137,53 @@ components:
               type: string
             reference_id:
               type: string
-    LanguagesResponse:
+    SessionToken:
       type: object
       properties:
-        success:
-          type: boolean
-        code:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Language'
-        req_id:
+        session_key:
           type: string
+          description: Short-lived key passed to the streaming WebSocket endpoint.
+        expires_at:
+          type: string
+          format: date-time
+        key_id:
+          type: integer
+        status:
+          type: string
+          example: active
+        type:
+          type: string
+          example: session
+    SessionTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SessionToken'
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PaymentRequired:
+      description: Balance exhausted or subscription expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
