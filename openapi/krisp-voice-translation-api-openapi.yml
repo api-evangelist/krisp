@@ -96,31 +96,37 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Server failed to process the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded or max concurrent connections exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PaymentRequired:
+      description: Balance exhausted or subscription expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    LanguagesResponse:
+    SessionTokenResponse:
       type: object
       properties:
-        success:
-          type: boolean
-        code:
-          type: integer
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Language'
-        req_id:
-          type: string
-    Language:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Human-readable language name.
-          example: English (United States)
-        language_code:
-          type: string
-          description: BCP 47 (RFC 5646) locale code.
-          example: en-US
+          $ref: '#/components/schemas/SessionToken'
     Error:
       type: object
       description: Krisp error payload. Not RFC 9457 problem+json.
@@ -137,6 +143,17 @@ components:
               type: string
             reference_id:
               type: string
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable language name.
+          example: English (United States)
+        language_code:
+          type: string
+          description: BCP 47 (RFC 5646) locale code.
+          example: en-US
     SessionToken:
       type: object
       properties:
@@ -154,36 +171,19 @@ components:
         type:
           type: string
           example: session
-    SessionTokenResponse:
+    LanguagesResponse:
       type: object
       properties:
+        success:
+          type: boolean
+        code:
+          type: integer
         data:
-          $ref: '#/components/schemas/SessionToken'
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded or max concurrent connections exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Server failed to process the request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PaymentRequired:
-      description: Balance exhausted or subscription expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        req_id:
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
