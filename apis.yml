@@ -122,6 +122,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/krisp-plans-pricing.yml
 - url: https://krisp.ai/blog/feed/
   type: BlogRSS
 - type: X-MCPServerCandidate
