@@ -1,0 +1,84 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://krisp.ai/pricing/
+sources:
+- https://krisp.ai/pricing/
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+  managed_tier: Core
+published: true
+note: 'Page covers three pricing sections: Meeting AI (per-seat monthly/annual), Call Center AI ($15 per
+  agent/mo annual; CC Advanced quote-based), and Developers (apply/negotiated).'
+plan_count: 10
+currency: USD
+plans:
+- name: Free Trial
+  price_text: $0
+  price: 0
+  currency: USD
+  period: none
+  included_quota: Test all premium features risk-free, Free for 7 days
+- name: Core
+  price_text: $16 /mo/user
+  price: 16
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Unlimited AI Note-taker, 1 hr/day Accent Conversion, 10 GB storage
+- name: Core (annual)
+  price_text: $8 /mo/user
+  price: 8
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Annual billing, Save 50%
+- name: Advanced
+  price_text: $30 /mo/user
+  price: 30
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Everything in Core +, 60 GB storage
+- name: Advanced (annual)
+  price_text: $15 /mo/user
+  price: 15
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Annual billing
+- name: Enterprise
+  price_text: Custom Pricing
+  period: none
+  included_quota: SSO/SCIM, Unlimited storage
+- name: CC Core
+  price_text: $15 per agent/mo, billed annually
+  price: 15
+  currency: USD
+  period: month
+  unit: agent
+  included_quota: Agent/Customer Noise Cancellation, SSO & SCIM, Usage analytics
+- name: CC Advanced
+  price_text: Book a demo
+  period: none
+  included_quota: Everything in CC Core, plus Voice Translation, Speech Analytics
+- name: Developers - Early stage
+  price_text: Apply Now
+  period: none
+  included_quota: VIVA, RTC models
+- name: Developers - Enterprise
+  price_text: Apply Now
+  period: none
+  included_quota: Higher quality models, Volume pricing
+rate_limit_statements:
+- 'Accent Conversion - Speaker side: 4hrs/day'
+- 1 hr/day Accent Conversion
+- Accent Conversion - Speaker side 1hr daily
