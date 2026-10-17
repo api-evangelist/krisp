@@ -97,12 +97,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
-    Unauthorized:
-      description: Missing, invalid, or expired API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     InternalServerError:
       description: Server failed to process the request.
       content:
@@ -115,6 +109,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     PaymentRequired:
       description: Balance exhausted or subscription expired.
       content:
@@ -122,11 +122,19 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    SessionTokenResponse:
+    LanguagesResponse:
       type: object
       properties:
+        success:
+          type: boolean
+        code:
+          type: integer
         data:
-          $ref: '#/components/schemas/SessionToken'
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        req_id:
+          type: string
     Error:
       type: object
       description: Krisp error payload. Not RFC 9457 problem+json.
@@ -171,19 +179,11 @@ components:
         type:
           type: string
           example: session
-    LanguagesResponse:
+    SessionTokenResponse:
       type: object
       properties:
-        success:
-          type: boolean
-        code:
-          type: integer
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Language'
-        req_id:
-          type: string
+          $ref: '#/components/schemas/SessionToken'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
