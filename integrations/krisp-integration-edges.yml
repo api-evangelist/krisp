@@ -1,6 +1,13 @@
 generated: '2026-10-14'
 method: searched
 checked:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/api/v4/apps/
 - microsoft-teams/integrations/microsoft-teams-integration-edges.yml
 - okta/integrations/okta-integration-edges.yml
@@ -108,3 +115,42 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@krisp.ai/kr-local-monitoring'
+      version: 0.1.1
+      released: '2026-05-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
+      repo_leg: github-org:krispai
+      publisher_leg: email:krisp.ai
+      matched_by: domain
+    - name: '@krisp.ai/krisp-vt-sdk'
+      version: 1.1.1
+      released: '2026-07-31'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@krisp.ai/krisp-vt-sdk
+      repo_leg: github-org:krispai
+      publisher_leg: email:krisp.ai
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
