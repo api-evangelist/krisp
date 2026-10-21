@@ -13,30 +13,10 @@ checked:
 - okta/integrations/okta-integration-edges.yml
 - slack/integrations/slack-integration-edges.yml
 - zoom/integrations/zoom-integration-edges.yml
+- hubspot/integrations/hubspot-integration-edges.yml
 source:
 - okta/integrations/okta-integration-edges.yml
 edges:
-- partner_name: Okta (own)
-  partner: okta
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.okta.com/integrations/krisp/
-  mirror_of: okta/integrations/okta-integration-edges.yml
-  apps:
-  - Krisp
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Single Sign-On
-  badges:
-  - OKTA_VERIFIED
-  features:
-  - SAML
 - partner_name: Zapier
   partner: zapier
   partner_match: aggregator
@@ -62,6 +42,66 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@krisp.ai/kr-local-monitoring'
+      version: 0.1.1
+      released: '2026-05-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
+      repo_leg: github-org:krispai
+      publisher_leg: email:krisp.ai
+      matched_by: domain
+    - name: '@krisp.ai/krisp-vt-sdk'
+      version: 1.1.1
+      released: '2026-07-31'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@krisp.ai/krisp-vt-sdk
+      repo_leg: github-org:krispai
+      publisher_leg: email:krisp.ai
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/krisp/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Krisp
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - SAML
 - partner_name: Microsoft Teams (own)
   partner: microsoft-teams
   partner_match: mirror
@@ -115,42 +155,20 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
-- partner_name: npm registry
-  partner: npm
-  partner_match: register
-  type: register
-  direction: provider-built
-  category: official SDK (JavaScript/TypeScript)
-  evidence: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
-  channel: package-registry
-  relationship: distribution-channel
-  contract_reference:
-    register: npm registry (public registry JSON)
-    spec_file: null
-    language: JavaScript/TypeScript
-    packages:
-    - name: '@krisp.ai/kr-local-monitoring'
-      version: 0.1.1
-      released: '2026-05-05'
-      released_field: modified
-      lapsed: false
-      page: https://www.npmjs.com/package/@krisp.ai/kr-local-monitoring
-      repo_leg: github-org:krispai
-      publisher_leg: email:krisp.ai
-      matched_by: domain
-    - name: '@krisp.ai/krisp-vt-sdk'
-      version: 1.1.1
-      released: '2026-07-31'
-      released_field: modified
-      lapsed: false
-      page: https://www.npmjs.com/package/@krisp.ai/krisp-vt-sdk
-      repo_leg: github-org:krispai
-      publisher_leg: email:krisp.ai
-      matched_by: domain
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
-  detected_by: sweep-official-sdks.py
-  first_seen: '2026-10-18'
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/krisp
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - Krisp
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: CALLING
