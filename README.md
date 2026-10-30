@@ -64,62 +64,146 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Krisp is a Voice AI platform whose real-time speech-enhancement models run on over 200 million devices,
-licensed by Discord, Twilio, and VMware among others. Beyond its consumer AI Note Taker, Krisp ships a
-developer surface: the AI Voice SDK family (VIVA for voice AI agents; RTC for human-to-human calls) across
-Windows, macOS, Linux, Web (JS/WASM), iOS, and Android with C++, Python, Node.js, Go, Rust, and JavaScript
-bindings, plus a self-serve Voice Translation API and a programmatic SDK/model download API.
+Krisp is a Voice AI platform whose real-time speech-enhancement models run on over 200 million devices, licensed by Discord, Twilio, and VMware among others. Beyond its consumer AI Note Taker, Krisp ships a developer surface: the AI Voice SDK family (VIVA for voice AI agents — voice isolation, turn prediction, interruption prediction, VAD; and RTC for human-to-human calls — accent conversion, bidirectional noise cancellation, background voice cancellation) across Windows, macOS, Linux, Web (JS/WASM), iOS, and Android with C++, Python, Node.js, Go, Rust, and JavaScript bindings, plus framework integrations for LiveKit, WebRTC, and Pipecat. Krisp also runs a self-serve Voice Translation API — a streaming WebSocket speech-to-speech translation service covering 61 languages behind a REST session-token mint — and a programmatic SDK and model download REST API for CI/CD pipelines.
 
-- Website — https://krisp.ai/
-- Developer portal — https://krisp.ai/developers/
-- SDK documentation — https://sdk-docs.krisp.ai/
-- Developer dashboard — https://developers.krisp.ai/
-- Playground — https://lab.krisp.ai/
-- GitHub — https://github.com/krispai
+**Areas:** Company · Artificial Intelligence · Voice AI · Speech · Audio · Noise Cancellation · Speech Translation · Real-Time Communication · WebRTC · Conversational AI · SDK · Machine Learning
 
-Backed by: sierra-ventures
+## Krisp on APIs.io
 
-## APIs
+Everything profiled for Krisp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/krisp/](https://apis.io/providers/krisp/)** — or go straight to one of the APIs or properties below.
 
-| API | Base URL | Shape |
-|---|---|---|
-| Voice Translation | `https://api.developers.krisp.ai` + `wss://streaming.krisp.ai/vt` | REST session mint + streaming WebSocket |
-| SDK & Model Downloads | `https://api.developers.krisp.ai` | REST |
+### APIs (2)
 
-## Artifacts
+- [Krisp SDK Distribution API](https://apis.io/apis/krisp/krisp-sdk-distribution-api/) — Programmatic retrieval of licensed SDK packages and model files.
+- [Krisp Voice Translation API](https://apis.io/apis/krisp/krisp-voice-translation-api/) — Session minting and language discovery for the real-time voice translation service.
 
-| Dir | Artifact | Method |
-|---|---|---|
-| `llms/` | `/llms.txt` from both sdk-docs.krisp.ai and krisp.ai, verbatim | searched |
-| `well-known/` | `/.well-known/` index + RFC 9116 security.txt, verbatim | searched |
-| `packages/` | 2 first-party npm packages + licensed distribution channel | searched |
-| `changelog/` | 5 recent SDK releases from sdk-docs.krisp.ai/changelog | searched |
-| `authentication/` | two-stage API key → session key model | searched |
-| `conventions/` | streaming protocol, versioning, tracing, error envelope | searched |
-| `errors/` | 5-code error registry from the Voice Translation reference | searched |
-| `lifecycle/` | versioning, SLA, known limitations | searched |
-| `conformance/` | standards posture + published compliance claims | searched |
-| `sandbox/` | Krisp Lab playground + free tier | searched |
-| `security/` | domain security probe, HackerOne VDP, Vanta trust center | probed / searched |
-| `openapi/` | 3 REST operations transcribed from prose docs — **not provider-published** | derived |
-| `asyncapi/` | Voice Translation WebSocket protocol — **not provider-published** | derived |
-| `data-model/` | 9-entity graph | derived |
-| `mcp/` | candidate tool surface — Krisp ships **no** official MCP server | derived |
-| `agentic-access/` | `x-agentic-access` recommendations for 3 operations | generated |
-| `overlays/` | API Evangelist annotations over the derived OpenAPI | generated |
-| `skills/` | 2 agent skills grounded in real operationIds | generated |
+### Published properties
 
-### Provenance caveat
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Krisp publishes **no** OpenAPI and **no** AsyncAPI document. `openapi/krisp-developers-openapi.yml` and
-`asyncapi/krisp-voice-translation-asyncapi.yml` are faithful transcriptions by the API Evangelist
-enrichment pipeline of the endpoints, parameters, and message shapes Krisp documents in prose at
-sdk-docs.krisp.ai. Paths, fields, and examples are verbatim; operationIds and schema names were assigned
-by the pipeline. Both files carry `x-apievangelist-provenance` recording this.
+#### AsyncAPI (1)
 
-### Deliberately absent
+Event-driven and webhook contracts.
 
-No public status page (status.krisp.ai is Cloudflare Access-gated), no deprecation policy, no OAuth scope
-surface, no first-party CLI, no webhooks, no published rate-limit values, and no idempotency contract —
-so no `StatusPage`, `Deprecation`, `OAuthScopes`, `CLI`, `Webhooks`, `RateLimits`, or `Idempotency`
-pointer is emitted.
+- [Krisp Voice Translation WebSocket API](https://apis.io/asyncapis/krisp/krisp-voice-translation-asyncapi/)
+
+#### Event channels (1)
+
+Individual events and webhooks the provider emits.
+
+- [/vt](https://apis.io/channels/krisp/vt/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [krisp](https://apis.io/servers/krisp/krisp/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Krisp Agentic Access](https://apis.io/agentic-access/krisp/krisp-agentic-access/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Krisp Developers SDK Distribution API](https://apis.io/collections/krisp/open-krisp-sdk-distribution-api/)
+- [Krisp Developers SDK Distribution Voice Translation API](https://apis.io/collections/krisp/open-krisp-voice-translation-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Krisp Developers Overlay](https://apis.io/overlays/krisp/krisp-developers-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Krisp Authentication](https://apis.io/security/krisp/krisp-authentication/)
+- [Krisp Domain Security](https://apis.io/security/krisp/krisp-domain-security/)
+- [Krisp Trust Center](https://apis.io/security/krisp/krisp-trust-center/)
+- [Krisp Vulnerability Disclosure](https://apis.io/security/krisp/krisp-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Krisp Plans Pricing](https://apis.io/plans/krisp/krisp-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://krisp.ai/)
+- [Documentation](https://sdk-docs.krisp.ai/)
+- [Getting started](https://sdk-docs.krisp.ai/docs/getting-started.md)
+- [API reference](https://sdk-docs.krisp.ai/docs/voice-translation-api.md)
+- [Pricing](https://krisp.ai/pricing/)
+- [Sign up](https://account.krisp.ai/trial/signup)
+- [Support](https://help.krisp.ai)
+- [Changelog](https://sdk-docs.krisp.ai/changelog)
+- [Blog](https://krisp.ai/blog/)
+- [Security](https://krisp.ai/security/)
+- [Compliance](https://krisp.ai/security-for-ai-meeting-assistant/)
+- [Trust centre](https://trust.krisp.ai/)
+- [Terms of service](https://krisp.ai/terms-of-use/)
+- [Privacy policy](https://krisp.ai/privacy-policy/)
+- [GitHub](https://github.com/krispai)
+
+## API Evangelist rating
+
+**Kin Score 48.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 22.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 56.5 |
+| Access clarity | 85.5 |
+
+**Agent readiness 31.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 32.7** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/krisp/](https://apis.io/providers/krisp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Krisp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/krisp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
